@@ -1,1 +1,22 @@
-<p>content works!</p>
+<div class="container">
+    <table class="table">
+    <thead>
+      <tr>
+        <th scope="col" >Title</th>
+        <th scope="col">Priority</th>
+        <th scope="col">Reporter</th>
+        <th scope="col">Date Created</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of bugsArray">
+        <td>{{item.title}}</td>
+        <td>{{item.priority}}</td>
+        <td>{{item.reporter}}</td>
+        <td>{{item.createdAt | date:'yyyy-MM-dd HH:mm'}}</td>
+        <td>{{item.status}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
