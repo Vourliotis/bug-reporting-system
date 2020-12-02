@@ -8,13 +8,17 @@ import { Observable } from 'rxjs';
 export class DataService {
 
   endpoint = 'https://bug-report-system-server.herokuapp.com/'
-  
+
   constructor(private http:HttpClient) { }
 
   getBugs():Observable<any>{
     return this.http.get(this.endpoint+ "bugs")
   }
-
+  
+  sortBy( value:string, order:string):Observable<any>{
+    return this.http.get(this.endpoint+ "bugs?sort="+value+","+order);
+  }
+  
   
 
 }

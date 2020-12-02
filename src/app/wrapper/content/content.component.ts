@@ -8,17 +8,34 @@ import { DataService } from 'src/app/data.service';
 })
 export class ContentComponent implements OnInit {
 
-  bugsArray:Array<string>;
+  bugsArray: Array<string>;
+  order: string = "asc";
 
-  constructor(private DataService:DataService) { }
+  title: string = "title";
+  date: string = "createdAt";
+  reporter: string = "reporter";
+  status: string = "status";
+  priority: string = "priority";
+
+  constructor(private DataService: DataService) { }
 
   ngOnInit(): void {
-    this.DataService.getBugs().subscribe((data)=>{
-      console.log(data);
+    this.DataService.getBugs().subscribe((data) => {
+      this.bugsArray = data;
+    })
+  }
+  sortBy(keyValue: string, order: string) {
+    this.DataService.sortBy(keyValue, order).subscribe((data) => {
       this.bugsArray = data;
     })
   }
 
-  
+  orderBy() {
+    if (this.order == "asc") {
+      this.order = "desc";
+    } else {
+      this.order = "asc";
+    }
+  }
 
 }

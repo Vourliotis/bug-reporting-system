@@ -2,11 +2,11 @@
     <table class="table">
     <thead>
       <tr>
-        <th scope="col" >Title</th>
-        <th scope="col">Priority</th>
-        <th scope="col">Reporter</th>
-        <th scope="col">Date Created</th>
-        <th scope="col">Status</th>
+        <th scope="col" (click)="sortBy(title,order); orderBy()">Title</th>
+        <th scope="col" (click)="sortBy(priority,order);orderBy()">Priority</th>
+        <th scope="col" (click)="sortBy(reporter,order); orderBy()">Reporter</th>
+        <th scope="col" (click)="sortBy(date,order); orderBy()">Date Created</th>
+        <th scope="col" (click)="sortBy(status,order); orderBy()">Status</th>
       </tr>
     </thead>
     <tbody>
