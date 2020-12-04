@@ -3,15 +3,15 @@
     <table class="table table-light table-striped text-center rounded ">
     <thead class="thead-dark">
       <tr>
-        <th scope="col" (click)="sortBy(title,order); orderBy()">Title <i class="fas fa-sort ml-2"></i></th>
-        <th scope="col" (click)="sortBy(priority,order);orderBy()">Priority <i class="fas fa-sort ml-2"></i></th>
-        <th scope="col" (click)="sortBy(reporter,order); orderBy()">Reporter <i class="fas fa-sort ml-2"></i></th>
-        <th scope="col" (click)="sortBy(date,order); orderBy()">Date Created <i class="fas fa-sort ml-2"></i></th>
-        <th scope="col" (click)="sortBy(status,order); orderBy()">Status <i class="fas fa-sort ml-2"></i></th>
+        <th scope="col" (click)="sortBugs(title,order);">Title <i class="fas fa-sort ml-2"></i></th>
+        <th scope="col" (click)="sortBugs(priority,order);">Priority <i class="fas fa-sort ml-2"></i></th>
+        <th scope="col" (click)="sortBugs(reporter,order);">Reporter <i class="fas fa-sort ml-2"></i></th>
+        <th scope="col" (click)="sortBugs(date,order);">Date Created <i class="fas fa-sort ml-2"></i></th>
+        <th scope="col" (click)="sortBugs(status,order);">Status <i class="fas fa-sort ml-2"></i></th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of bugsArray">
+      <tr *ngFor="let item of arrayOfBugs">
         <td>{{item.title}}</td>
         <td>{{item.priority}}</td>
         <td>{{item.reporter}}</td>

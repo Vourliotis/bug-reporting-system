@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { Bugs } from 'src/app/bugs';
 import { DataService } from 'src/app/data.service';
+
 
 @Component({
   selector: 'app-content',
@@ -8,10 +11,10 @@ import { DataService } from 'src/app/data.service';
 })
 export class ContentComponent implements OnInit {
 
-  bugsArray: Array<string>;
-  order: string = "asc";
+  arrayOfBugs: Array<Bugs>;
+  order= true;
 
-  title: string = "title";
+  title: string= "title";
   date: string = "createdAt";
   reporter: string = "reporter";
   status: string = "status";
@@ -20,22 +23,41 @@ export class ContentComponent implements OnInit {
   constructor(private DataService: DataService) { }
 
   ngOnInit(): void {
-    this.DataService.getBugs().subscribe((data) => {
-      this.bugsArray = data;
-    })
-  }
-  sortBy(keyValue: string, order: string) {
-    this.DataService.sortBugsBy(keyValue, order).subscribe((data) => {
-      this.bugsArray = data;
+    this.DataService.getAllBugs(this.title, true).subscribe((data) => {
+      this.arrayOfBugs = data;
     })
   }
 
-  orderBy() {
-    if (this.order == "asc") {
-      this.order = "desc";
-    } else {
-      this.order = "asc";
-    }
+ 
+  sortBugs(category:string, isClicked:boolean) {
+    this.DataService.getAllBugs(category, isClicked).subscribe((data) => {
+      this.order == true ? this.order = false : this.order = true;
+      this.arrayOfBugs = data;
+    })
   }
 
 }
+
+
+
+
+
+
+    // this.DataService.getBugs().subscribe((data) => {
+    //   this.bugsArray = data;
+    // })
+
+
+  // sortBy(keyValue: string, order: string) {
+  //   this.DataService.sortBugsBy(keyValue, order).subscribe((data) => {
+  //     this.bugsArray = data;
+  //   })
+  // }
+
+  // orderBy() {
+  //   if (this.order == "asc") {
+  //     this.order = "desc";
+  //   } else {
+  //     this.order = "asc";
+  //   }
+  // }
