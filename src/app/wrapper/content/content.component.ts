@@ -25,7 +25,7 @@ export class ContentComponent implements OnInit {
     })
   }
   sortBy(keyValue: string, order: string) {
-    this.DataService.sortBy(keyValue, order).subscribe((data) => {
+    this.DataService.sortBugsBy(keyValue, order).subscribe((data) => {
       this.bugsArray = data;
     })
   }

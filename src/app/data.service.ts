@@ -15,8 +15,8 @@ export class DataService {
     return this.http.get(this.endpoint+ "bugs")
   }
   
-  sortBy( value:string, order:string):Observable<any>{
-    return this.http.get(this.endpoint+ "bugs?sort="+value+","+order);
+  sortBugsBy(keyValue:string, order:string):Observable<any>{
+    return this.http.get(this.endpoint+ "bugs?sort="+keyValue+","+order);
   }
   
   

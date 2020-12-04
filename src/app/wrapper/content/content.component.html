@@ -1,12 +1,13 @@
 <div class="container">
-    <table class="table">
-    <thead>
+  <div class="table-responsive-md text-nowrap">
+    <table class="table table-light table-striped text-center rounded ">
+    <thead class="thead-dark">
       <tr>
-        <th scope="col" (click)="sortBy(title,order); orderBy()">Title</th>
-        <th scope="col" (click)="sortBy(priority,order);orderBy()">Priority</th>
-        <th scope="col" (click)="sortBy(reporter,order); orderBy()">Reporter</th>
-        <th scope="col" (click)="sortBy(date,order); orderBy()">Date Created</th>
-        <th scope="col" (click)="sortBy(status,order); orderBy()">Status</th>
+        <th scope="col" (click)="sortBy(title,order); orderBy()">Title <i class="fas fa-sort ml-2"></i></th>
+        <th scope="col" (click)="sortBy(priority,order);orderBy()">Priority <i class="fas fa-sort ml-2"></i></th>
+        <th scope="col" (click)="sortBy(reporter,order); orderBy()">Reporter <i class="fas fa-sort ml-2"></i></th>
+        <th scope="col" (click)="sortBy(date,order); orderBy()">Date Created <i class="fas fa-sort ml-2"></i></th>
+        <th scope="col" (click)="sortBy(status,order); orderBy()">Status <i class="fas fa-sort ml-2"></i></th>
       </tr>
     </thead>
     <tbody>
@@ -19,4 +20,5 @@
       </tr>
     </tbody>
   </table>
+</div>
 </div>
