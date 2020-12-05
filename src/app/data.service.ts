@@ -12,9 +12,9 @@ export class DataService {
 
   constructor(private http:HttpClient) {}
 
-  getAllBugs( filter:string, order:boolean) : Observable<any>{
+  getAllBugs( filter:string, order:boolean) : Observable<Bugs[]>{
     let query = this.endpoint + "?sort="+filter+","
                 + (order ? "asc": "desc");
-    return this.http.get(query)
+    return this.http.get<Bugs[]>(query)
   }
 }

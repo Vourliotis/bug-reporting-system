@@ -10,11 +10,11 @@ import { DataService } from 'src/app/data.service';
 })
 export class ContentComponent implements OnInit {
 
-  arrayOfBugs: Array<Bugs>;
+  arrayOfBugs: Bugs[];
   order= true;
 
   title: string= "title";
-  date: string = "createdAt";
+  date: string = "createdAt"; 
   reporter: string = "reporter";
   status: string = "status";
   priority: string = "priority";
