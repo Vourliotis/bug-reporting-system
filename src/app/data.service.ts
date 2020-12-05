@@ -17,20 +17,4 @@ export class DataService {
                 + (order ? "asc": "desc");
     return this.http.get(query)
   }
-
-  
-
 }
-
-
-
-
-
-
-  // getBugs():Observable<any>{
-  //   return this.http.get(this.endpoint+ "bugs")
-  // }
-  
-  // sortBugsBy(keyValue:string, order:string):Observable<any>{
-  //   return this.http.get(this.endpoint+ "bugs?sort="+keyValue+","+order);
-  // }

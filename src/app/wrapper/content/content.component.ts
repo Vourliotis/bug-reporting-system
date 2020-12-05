@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { Bugs } from 'src/app/bugs';
 import { DataService } from 'src/app/data.service';
 
@@ -37,27 +36,3 @@ export class ContentComponent implements OnInit {
   }
 
 }
-
-
-
-
-
-
-    // this.DataService.getBugs().subscribe((data) => {
-    //   this.bugsArray = data;
-    // })
-
-
-  // sortBy(keyValue: string, order: string) {
-  //   this.DataService.sortBugsBy(keyValue, order).subscribe((data) => {
-  //     this.bugsArray = data;
-  //   })
-  // }
-
-  // orderBy() {
-  //   if (this.order == "asc") {
-  //     this.order = "desc";
-  //   } else {
-  //     this.order = "asc";
-  //   }
-  // }
