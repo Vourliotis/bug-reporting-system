@@ -11,28 +11,35 @@ import { BugsService } from 'src/app/services/bugs.service';
 export class ContentComponent implements OnInit {
 
   arrayOfBugs: Bugs[];
-  order= true;
-
-  title: string= "title";
-  date: string = "createdAt"; 
-  reporter: string = "reporter";
-  status: string = "status";
-  priority: string = "priority";
+  
+  currentSort = {
+    order: false,
+    currentValue: "none"
+  }
 
   constructor(private bugs: BugsService) { }
 
   ngOnInit(): void {
-    this.bugs.getAllBugs(this.title, true).subscribe((data) => {
+    this.bugs.getAllBugs(!this.currentSort.order).subscribe((data) => {
       this.arrayOfBugs = data;
     })
   }
 
- 
-  sortBugs(category:string, isClicked:boolean) {
-    this.bugs.getAllBugs(category, isClicked).subscribe((data) => {
-      this.order == true ? this.order = false : this.order = true;
+  sortBugs(category:string) {
+    this.bugs.getAllBugs(this.currentSort.order, category).subscribe((data) => {
       this.arrayOfBugs = data;
     })
+    
+    if(this.currentSort.currentValue == category){
+      if(this.currentSort.order == false){
+        this.currentSort.order = true
+      }else{
+        this.currentSort.order = false
+      }
+    }else{
+      this.currentSort.order = true
+      this.currentSort.currentValue = category
+    }
   }
 
 }

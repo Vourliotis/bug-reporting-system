@@ -20,7 +20,7 @@ export class BugsService {
     return this.http.get<Bugs[]>(`${this.endpoint}?sort=${value},${order}`)
   }
 
-  getAllBugs( filter:string, order:boolean) : Observable<Bugs[]>{
+  getAllBugs(order:boolean, filter = "title") : Observable<Bugs[]>{
     let query = this.endpoint + "?sort="+filter+","
                 + (order ? "asc": "desc");
     return this.http.get<Bugs[]>(query)

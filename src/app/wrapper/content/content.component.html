@@ -3,11 +3,11 @@
     <table class="table table-light table-striped text-center rounded ">
     <thead class="thead-dark">
       <tr>
-        <th scope="col" (click)="sortBugs(title,order);">Title <i class="fas fa-sort ml-2"></i></th>
-        <th scope="col" (click)="sortBugs(priority,order);">Priority <i class="fas fa-sort ml-2"></i></th>
-        <th scope="col" (click)="sortBugs(reporter,order);">Reporter <i class="fas fa-sort ml-2"></i></th>
-        <th scope="col" (click)="sortBugs(date,order);">Date Created <i class="fas fa-sort ml-2"></i></th>
-        <th scope="col" (click)="sortBugs(status,order);">Status <i class="fas fa-sort ml-2"></i></th>
+        <th scope="col" (click)="sortBugs('title');">Title <i class="fas fa-sort ml-2"></i></th>
+        <th scope="col" (click)="sortBugs('priority');">Priority <i class="fas fa-sort ml-2"></i></th>
+        <th scope="col" (click)="sortBugs('reporter');">Reporter <i class="fas fa-sort ml-2"></i></th>
+        <th scope="col" (click)="sortBugs('date');">Date Created <i class="fas fa-sort ml-2"></i></th>
+        <th scope="col" (click)="sortBugs('status');">Status <i class="fas fa-sort ml-2"></i></th>
       </tr>
     </thead>
     <tbody>
