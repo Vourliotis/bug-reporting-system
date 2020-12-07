@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Bugs } from 'src/app/bugs';
-import { DataService } from 'src/app/data.service';
+import { Bugs } from 'src/app/models/bugs.model';
+import { BugsService } from 'src/app/services/bugs.service';
 
 
 @Component({
@@ -19,17 +19,17 @@ export class ContentComponent implements OnInit {
   status: string = "status";
   priority: string = "priority";
 
-  constructor(private DataService: DataService) { }
+  constructor(private bugs: BugsService) { }
 
   ngOnInit(): void {
-    this.DataService.getAllBugs(this.title, true).subscribe((data) => {
+    this.bugs.getAllBugs(this.title, true).subscribe((data) => {
       this.arrayOfBugs = data;
     })
   }
 
  
   sortBugs(category:string, isClicked:boolean) {
-    this.DataService.getAllBugs(category, isClicked).subscribe((data) => {
+    this.bugs.getAllBugs(category, isClicked).subscribe((data) => {
       this.order == true ? this.order = false : this.order = true;
       this.arrayOfBugs = data;
     })
