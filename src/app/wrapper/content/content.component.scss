@@ -9,6 +9,11 @@ table {
         color :white;
         font-size: 1.1rem;
         user-select: none;
+        cursor: pointer;
+      }
+      th:hover{
+        background-color: #6E6CE0;
+        border-color: #6E6CE0;
       } 
       td{
         min-width: 175px;
