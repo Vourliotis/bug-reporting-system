@@ -14,7 +14,7 @@ export class ContentComponent implements OnInit {
   
   currentSort = {
     order: false,
-    currentValue: "none"
+    currentCategory: "none"
   }
 
   constructor(private bugs: BugsService) { }
@@ -26,11 +26,8 @@ export class ContentComponent implements OnInit {
   }
 
   sortBugs(category:string) {
-    this.bugs.getAllBugs(this.currentSort.order, category).subscribe((data) => {
-      this.arrayOfBugs = data;
-    })
-    
-    if(this.currentSort.currentValue == category){
+
+    if(this.currentSort.currentCategory == category){
       if(this.currentSort.order == false){
         this.currentSort.order = true
       }else{
@@ -38,8 +35,21 @@ export class ContentComponent implements OnInit {
       }
     }else{
       this.currentSort.order = true
-      this.currentSort.currentValue = category
+      this.currentSort.currentCategory = category
     }
+
+    this.bugs.getAllBugs(this.currentSort.order, category).subscribe((data) => {
+      this.arrayOfBugs = data;
+    })
   }
 
+  arrowStyle(category:string){
+    if(this.currentSort.currentCategory == category && this.currentSort.order == false){
+      return "fa-sort-down"
+    }else if(this.currentSort.currentCategory == category && this.currentSort.order == true){
+      return "fa-sort-up"
+    }else{
+      return ""
+    }
+  }
 }
