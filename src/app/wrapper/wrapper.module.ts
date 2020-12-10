@@ -5,6 +5,7 @@ import { ContentComponent } from './content/content.component';
 import { FooterComponent } from './footer/footer.component';
 import { WrapperComponent } from './wrapper/wrapper.component';
 import { BugsModule } from '../bugs/bugs.module';
+import { AppRoutingModule } from '../app-routing.module';
 
 
 
@@ -12,7 +13,8 @@ import { BugsModule } from '../bugs/bugs.module';
   declarations: [HeaderComponent, ContentComponent, FooterComponent, WrapperComponent],
   imports: [
     CommonModule,
-    BugsModule
+    BugsModule,
+    AppRoutingModule
   ],
   exports:[
     WrapperComponent
