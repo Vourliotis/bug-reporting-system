@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CreateBugComponent } from './create-bug/create-bug.component';
 import { EditBugComponent } from './edit-bug/edit-bug.component';
 import { AppRoutingModule } from '../app-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -10,7 +11,8 @@ import { AppRoutingModule } from '../app-routing.module';
   declarations: [CreateBugComponent, EditBugComponent],
   imports: [
     CommonModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   exports: [
     CreateBugComponent, EditBugComponent

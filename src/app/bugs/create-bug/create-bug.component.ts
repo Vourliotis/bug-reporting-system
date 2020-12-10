@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { title } from 'process';
 
 @Component({
   selector: 'app-create-bug',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateBugComponent implements OnInit {
 
-  constructor() { }
+  createForm: FormGroup
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.createForm = this.fb.group({
+      title: [],
+      description: [],
+      priority: [],
+      reporter: [],
+      status: []
+    })
   }
 
 }
