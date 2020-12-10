@@ -25,7 +25,7 @@
         <td>{{item.reporter}}</td>
         <td>{{item.createdAt | date:'yyyy-MM-dd HH:mm'}}</td>
         <td>{{item.status}}</td>
-        <td><button type="button" class="btn btn-warning btn-sm" [routerLink] = "['edit-bug']">Edit</button></td>
+        <td><button type="button" class="btn btn-warning btn-sm" [routerLink] = "['edit-bug', item.id]">Edit</button></td>
         <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
       </tr>
     </tbody>
