@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WrapperModule } from './wrapper/wrapper.module';
+import { BugsModule } from './bugs/bugs.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { WrapperModule } from './wrapper/wrapper.module';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    WrapperModule
+    WrapperModule,
+    BugsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

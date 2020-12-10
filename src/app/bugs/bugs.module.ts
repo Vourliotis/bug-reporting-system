@@ -9,6 +9,9 @@ import { EditBugComponent } from './edit-bug/edit-bug.component';
   declarations: [CreateBugComponent, EditBugComponent],
   imports: [
     CommonModule
+  ],
+  exports: [
+    CreateBugComponent, EditBugComponent
   ]
 })
 export class BugsModule { }

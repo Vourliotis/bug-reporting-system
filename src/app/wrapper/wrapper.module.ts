@@ -4,13 +4,15 @@ import { HeaderComponent } from './header/header.component';
 import { ContentComponent } from './content/content.component';
 import { FooterComponent } from './footer/footer.component';
 import { WrapperComponent } from './wrapper/wrapper.component';
+import { BugsModule } from '../bugs/bugs.module';
 
 
 
 @NgModule({
   declarations: [HeaderComponent, ContentComponent, FooterComponent, WrapperComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    BugsModule
   ],
   exports:[
     WrapperComponent
