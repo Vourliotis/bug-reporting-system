@@ -8,7 +8,7 @@ table {
         background-color:#36304a; 
         color :white;
         font-size: 1.1rem;
-        user-select: none;
+        //user-select: none;
         cursor: pointer;
       }
       th:hover{
@@ -16,11 +16,19 @@ table {
         border-color: #6E6CE0;
       } 
       td{
-        min-width: 175px;
+        //@at-root: 175px;
       }
   } 
 
-  @media (max-width: 400px) {  
-    font-size:1rem !important;
-  } 
+  // @media (max-width: 400px) {  
+  //   font-size:1rem !important;
+  // } 
+}
+
+.buttonRow {
+  padding-bottom: 10px;
+}
+
+.btn-create {
+  background-color:#36304a; 
 }

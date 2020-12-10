@@ -1,13 +1,21 @@
 <div class="container">
+  <div class = "row buttonRow">
+    <div class ="col-2">
+      <button type="button" class="btn btn-dark btn-md btn-create">Create new</button>
+      <br>
+    </div>
+  </div>
   <div class="table-responsive-md text-nowrap">
-    <table class="table table-light table-striped text-center rounded ">
+    <table class="table table-light table-striped text-center rounded">
     <thead class="thead-dark">
       <tr>
-        <th scope="col" (click)="sortBugs('title');">Title <i [ngClass]="arrowStyle('title')" class="fas ml-2"></i></th>
-        <th scope="col" (click)="sortBugs('priority');">Priority <i [ngClass]="arrowStyle('priority')" class="fas ml-2"></i></th>
-        <th scope="col" (click)="sortBugs('reporter');">Reporter <i [ngClass]="arrowStyle('reporter')" class="fas ml-2"></i></th>
-        <th scope="col" (click)="sortBugs('createdAt');">Date Created <i [ngClass]="arrowStyle('createdAt')" class="fas ml-2"></i></th>
-        <th scope="col" (click)="sortBugs('status');">Status <i [ngClass]="arrowStyle('status')" class="fas ml-2"></i></th>
+        <th style="width: 33%" scope="col" (click)="sortBugs('title');">Title <i [ngClass]="arrowStyle('title')" class="fas ml-2"></i></th>
+        <th style="width: 2%" scope="col" (click)="sortBugs('priority');">Priority <i [ngClass]="arrowStyle('priority')" class="fas ml-2"></i></th>
+        <th style="width: 10%" scope="col" (click)="sortBugs('reporter');">Reporter <i [ngClass]="arrowStyle('reporter')" class="fas ml-2"></i></th>
+        <th style="width: 25%" scope="col" (click)="sortBugs('createdAt');">Date Created <i [ngClass]="arrowStyle('createdAt')" class="fas ml-2"></i></th>
+        <th style="width: 15%" scope="col" (click)="sortBugs('status');">Status <i [ngClass]="arrowStyle('status')" class="fas ml-2"></i></th>
+        <th style="width: 5%" scope ="col" class="emptyCell"></th>
+        <th style="width: 10%"scope ="col" class="emptyCell"></th>
       </tr>
     </thead>
     <tbody>
@@ -17,6 +25,8 @@
         <td>{{item.reporter}}</td>
         <td>{{item.createdAt | date:'yyyy-MM-dd HH:mm'}}</td>
         <td>{{item.status}}</td>
+        <td><button type="button" class="btn btn-warning btn-sm">Edit</button></td>
+        <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
       </tr>
     </tbody>
   </table>
