@@ -1,31 +1,37 @@
 <div class="container col-6">
   <form [formGroup]="createForm">
     <div class="form-group">
-      <input type="text" class="form-control" placeholder="Title" formControlName="title">
+      <label for="title" class="font-weight-bold">Title</label>
+      <input type="text" class="form-control" id="title" placeholder="Title" formControlName="title">
     </div>
 
     <div class="form-group">
-      <input type="text" class="form-control" placeholder="Description" formControlName="description">
+      <label label="description" class="font-weight-bold">Description</label>
+      <input type="text" class="form-control" id="description" placeholder="Description" formControlName="description">
     </div>
 
     <div class="form-group">
-      <input type="text" class="form-control" placeholder="Priority" formControlName="priority">
+      <label label="priority" class="font-weight-bold">Priority</label>
+      <input type="text" class="form-control" id="priority" placeholder="Priority" formControlName="priority">
     </div>
 
     <div class="form-group">
-      <input type="text" class="form-control" placeholder="Reporter" formControlName="reporter">
+      <label label="reporter" class="font-weight-bold">Reporter</label>
+      <input type="text" class="form-control" id="reporter" placeholder="Reporter" formControlName="reporter">
     </div>
 
     <div class="form-group">
-      <input type="text" class="form-control" placeholder="Status" formControlName="status">
+      <label label="status" class="font-weight-bold">Status</label>
+      <input type="text" class="form-control" id="status" placeholder="Status" formControlName="status">
     </div>
-    
-    <div class="row mt-3">
-        <button type="button" class="btn btn-danger ml-3">Danger</button>
+
+    <div class="row float-right">
+      <button type="button" class="btn btn-danger mr-3">Submit</button>
     </div>
   </form>
-  
-  <div class="row mt-3">
+
+  <br><br>
+  <div class="row mt-5">
     {{createForm.value | json}}
   </div>
 </div>
