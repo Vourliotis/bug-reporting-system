@@ -13,7 +13,7 @@ export class EditBugComponent implements OnInit, OnDestroy {
 
   updateForm: FormGroup
   routeSubscription: Subscription
-  routeID: string
+  routeId: string
   bugsSubscription: Subscription
 
   constructor(private fb: FormBuilder, private bugs: BugsService, private router: Router, private route: ActivatedRoute) { }
@@ -28,8 +28,10 @@ export class EditBugComponent implements OnInit, OnDestroy {
     })
 
     this.routeSubscription = this.route.params.subscribe(params => {
-      this.routeID = params['id']
+      this.routeId = params['id']
     });
+
+    this.patchForm
   }
 
   ngOnDestroy(): void {
@@ -40,5 +42,11 @@ export class EditBugComponent implements OnInit, OnDestroy {
     this.bugsSubscription = this.bugs.updateBug(id, form.value).subscribe(response => {
       console.log("SUCCESS");
     })
+  }
+
+  patchForm(form: FormGroup){
+    form.patchValue(this.bugs.getBugById(this.routeId).subscribe(response => {
+      console.log('PATCH SUCCESS')
+    }))
   }
 }

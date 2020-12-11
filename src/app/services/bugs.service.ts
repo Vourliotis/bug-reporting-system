@@ -39,4 +39,8 @@ export class BugsService {
   updateBug(id: string, bug: Bugs){
     return this.http.put(this.endpoint+"/"+id, bug)
   }
+
+  getBugById(id: string) : Observable<Bugs>{
+    return this.http.get<Bugs>(this.endpoint+"/"+id)
+  }
 }
