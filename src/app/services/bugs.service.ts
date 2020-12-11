@@ -25,4 +25,8 @@ export class BugsService {
                 + (order ? "asc": "desc");
     return this.http.get<Bugs[]>(query)
   }
+
+  deleteBug(id:number){
+    return this.http.delete(this.endpoint + id)
+  }
 }
