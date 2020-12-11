@@ -20,7 +20,7 @@ export class CreateBugComponent implements OnInit {
       description: [null, Validators.required],
       priority: [null, Validators.required],
       reporter: [null, Validators.required],
-      status: [, Validators.required]
+      status: [null, Validators.required]
     })
   }
 
