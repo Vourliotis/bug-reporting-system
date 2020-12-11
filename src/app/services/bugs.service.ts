@@ -43,4 +43,8 @@ export class BugsService {
   getBugById(id: string) : Observable<Bugs>{
     return this.http.get<Bugs>(this.endpoint+"/"+id)
   }
+
+  getBugsByPage(pageNumber: number) : Observable<Bugs[]>{
+    return this.http.get<Bugs[]>(this.endpoint+"?page="+pageNumber)
+  }
 }

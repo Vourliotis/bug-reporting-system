@@ -12,6 +12,7 @@ import { BugsService } from 'src/app/services/bugs.service';
 export class ContentComponent implements OnInit {
 
   arrayOfBugs: Bugs[];
+  pageNumber = 0;
   
   currentSort = {
     order: false,
@@ -21,7 +22,7 @@ export class ContentComponent implements OnInit {
   constructor(private bugs: BugsService, private router: Router) { }
 
   ngOnInit(): void {
-    this.bugs.getBugs(!this.currentSort.order).subscribe((data) => {
+    this.bugs.getBugsByPage(this.pageNumber).subscribe((data) => {
       this.arrayOfBugs = data;
     })
   }
@@ -58,5 +59,16 @@ export class ContentComponent implements OnInit {
     this.bugs.deleteBug(id).subscribe(data => {
       this.arrayOfBugs = this.arrayOfBugs.filter(item => item.id !== id);
     });
+  }
+
+  changePage(direction: string){
+    if(direction == "increase"){
+      this.pageNumber += 1
+    }else if(direction == "decrease"){
+      this.pageNumber -=1
+    }
+    this.bugs.getBugsByPage(this.pageNumber).subscribe((data) => {
+      this.arrayOfBugs = data;
+    })
   }
 }
