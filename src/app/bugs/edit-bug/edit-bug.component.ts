@@ -37,7 +37,7 @@ export class EditBugComponent implements OnInit, OnDestroy {
   }
 
   formSubmit(id: string, form: FormGroup){
-    this.bugs.updateBug(id, form.value).subscribe(response => {
+    this.bugsSubscription = this.bugs.updateBug(id, form.value).subscribe(response => {
       console.log("SUCCESS");
     })
   }

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { BugsService } from 'src/app/services/bugs.service';
 
 @Component({
@@ -8,9 +9,10 @@ import { BugsService } from 'src/app/services/bugs.service';
   templateUrl: './create-bug.component.html',
   styleUrls: ['./create-bug.component.scss']
 })
-export class CreateBugComponent implements OnInit {
+export class CreateBugComponent implements OnInit, OnDestroy {
 
   createForm: FormGroup
+  bugsSubscription: Subscription
 
   constructor(private fb: FormBuilder, private bugs: BugsService, private router: Router) { }
 
@@ -24,14 +26,22 @@ export class CreateBugComponent implements OnInit {
     })
   }
 
+  ngOnDestroy(): void {
+    this.bugsSubscription.unsubscribe
+  }
+
   formSubmit(form: FormGroup): void{
-    this.bugs.postBug(form.value).subscribe(response => {
+    this.bugsSubscription = this.bugs.postBug(form.value).subscribe(response => {
       console.log("POSTED")
     })
     
     setTimeout (() => {
       this.router.navigate([""])
     },100);
+  }
+
+  patchForm(){
+    
   }
 
 }
