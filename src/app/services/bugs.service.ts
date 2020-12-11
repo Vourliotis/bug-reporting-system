@@ -26,10 +26,8 @@ export class BugsService {
     return this.http.get<Bugs[]>(query)
   }
 
-  deleteBug(id:number){
+  deleteBug(id:string){
     // console.log(this.endpoint+'/'+id)
-    return this.http.delete(`${this.endpoint}/${id}`).subscribe(data => {
-      console.log(data)
-    })
+    return this.http.delete(`${this.endpoint}/${id}`)
   }
 }

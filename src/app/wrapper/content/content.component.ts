@@ -54,8 +54,9 @@ export class ContentComponent implements OnInit {
     }
   }
 
-  deleteBug(id:number){
-    this.bugs.deleteBug(id);
-    this.bugs.getBugs(!this.currentSort.order)
+  deleteBug(id:string){
+    this.bugs.deleteBug(id).subscribe(data => {
+      this.arrayOfBugs = this.arrayOfBugs.filter(item => item.id !== id);
+    });
   }
 }
