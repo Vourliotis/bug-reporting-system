@@ -31,7 +31,7 @@ export class EditBugComponent implements OnInit, OnDestroy {
       this.routeId = params['id']
     });
 
-    this.patchForm
+    this.patchForm(this.updateForm)
   }
 
   ngOnDestroy(): void {
