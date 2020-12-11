@@ -42,11 +42,15 @@ export class EditBugComponent implements OnInit, OnDestroy {
     this.bugsSubscription = this.bugs.updateBug(id, form.value).subscribe(response => {
       console.log("SUCCESS");
     })
+
+    setTimeout (() => {
+      this.router.navigate([""])
+    },100);
   }
 
   patchForm(form: FormGroup){
-    form.patchValue(this.bugs.getBugById(this.routeId).subscribe(response => {
-      console.log('PATCH SUCCESS')
-    }))
+    this.bugs.getBugById(this.routeId).subscribe(bug => {
+      form.patchValue(bug)
+    })
   }
 }
