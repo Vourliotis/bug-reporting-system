@@ -25,7 +25,7 @@ export class CreateBugComponent implements OnInit {
   }
 
   formSubmit(form: FormGroup): void{
-    this.bugs.postBug(form).subscribe(response => {
+    this.bugs.postBug(form.value).subscribe(response => {
       console.log("POSTED")
     })
     

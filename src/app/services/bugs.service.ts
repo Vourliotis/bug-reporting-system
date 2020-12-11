@@ -32,7 +32,7 @@ export class BugsService {
     return this.http.delete(`${this.endpoint}/${id}`)
   }
 
-  postBug(form: FormGroup){
+  postBug(form: Observable<Bugs>){
     return this.http.post(this.endpoint, form)
   }
 }
