@@ -55,7 +55,7 @@ export class ContentComponent implements OnInit {
   }
 
   deleteBug(id:number){
-    return this.bugs.deleteBug(id);
-    this.router.navigate['']
+    this.bugs.deleteBug(id);
+    this.bugs.getBugs(!this.currentSort.order)
   }
 }
