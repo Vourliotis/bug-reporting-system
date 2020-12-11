@@ -2,6 +2,7 @@ table {
   font-family: 'Open Sans', sans-serif;
   font-weight: 300;
   box-shadow: 2px 4px 500px rgba(0, 0, 0, 0.5);
+  table-layout: fixed;
 
   tr{
       th{
@@ -11,13 +12,17 @@ table {
         &:not(:nth-last-child(-n+2)){
           cursor: pointer;
         }
+        overflow: hidden;
+        i{
+          text-align: right;
+        }
       }
       th:not(:nth-last-child(-n+2)):hover{
         background-color: #6E6CE0;
         border-color: #6E6CE0;
       } 
       td{
-        
+        overflow: hidden;
       }
   } 
 }
