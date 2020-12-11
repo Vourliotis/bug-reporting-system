@@ -8,21 +8,18 @@ table {
         background-color:#36304a; 
         color :white;
         font-size: 1.1rem;
-        //user-select: none;
-        cursor: pointer;
+        &:not(:nth-last-child(-n+2)){
+          cursor: pointer;
+        }
       }
-      th:hover{
+      th:not(:nth-last-child(-n+2)):hover{
         background-color: #6E6CE0;
         border-color: #6E6CE0;
       } 
       td{
-        //@at-root: 175px;
+        
       }
   } 
-
-  // @media (max-width: 400px) {  
-  //   font-size:1rem !important;
-  // } 
 }
 
 .buttonRow {
