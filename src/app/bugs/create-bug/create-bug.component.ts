@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BugsService } from 'src/app/services/bugs.service';
 
 @Component({
   selector: 'app-create-bug',
@@ -10,7 +11,7 @@ export class CreateBugComponent implements OnInit {
 
   createForm: FormGroup
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private bugs: BugsService) { }
 
   ngOnInit(): void {
     this.createForm = this.fb.group({
@@ -22,8 +23,9 @@ export class CreateBugComponent implements OnInit {
     })
   }
 
-  submitForm(): void{
+  formSubmit(): void{
     console.log('success')
+    this.bugs.postBug(this.createForm)
   }
 
 }

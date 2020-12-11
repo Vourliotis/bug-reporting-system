@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-body">
       <!-- <h5 class="card-title text-center font-weight-bold">Card title</h5> -->
-      <form [formGroup]="createForm" (submit)="submitForm()">
+      <form [formGroup]="createForm" (submit)="formSubmit()">
         <div class="form-group">
           <label for="title" class="font-weight-bold">Title</label>
           <input type="text" class="form-control" id="title" formControlName="title">

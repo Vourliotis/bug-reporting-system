@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Form, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Bugs } from '../models/bugs.model';
 
@@ -29,5 +30,9 @@ export class BugsService {
   deleteBug(id:string){
     // console.log(this.endpoint+'/'+id)
     return this.http.delete(`${this.endpoint}/${id}`)
+  }
+
+  postBug(form: FormGroup){
+    return this.http.post(this.endpoint+'/'+form)
   }
 }
