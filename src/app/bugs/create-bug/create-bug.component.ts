@@ -28,7 +28,10 @@ export class CreateBugComponent implements OnInit {
     this.bugs.postBug(form).subscribe(response => {
       console.log("POSTED")
     })
-    this.router.navigate([''])
+    
+    setTimeout (() => {
+      this.router.navigate([""])
+    },100);
   }
 
 }
