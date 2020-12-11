@@ -33,6 +33,6 @@ export class BugsService {
   }
 
   postBug(form: FormGroup){
-    return this.http.post(this.endpoint+'/'+form)
+    return this.http.post(this.endpoint, form)
   }
 }
