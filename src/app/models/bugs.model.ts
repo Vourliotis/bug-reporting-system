@@ -7,9 +7,9 @@ export class Bugs {
     status: string;
     updatedAt: string;
     createdAt: string;
-    comments: {
+    comments: [{
         id: string;
         reporter: string;
         description: string;
-    }
+    }]
 }
