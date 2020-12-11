@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { BugsService } from 'src/app/services/bugs.service';
@@ -23,6 +23,16 @@ export class CreateBugComponent implements OnInit, OnDestroy {
       priority: [null, Validators.required],
       reporter: [null, Validators.required],
       status: [null, Validators.required]
+    })
+
+    this.createForm.controls['reporter'].valueChanges.subscribe(value => {
+      console.log(value)
+      if(value == "QA"){
+        this.createForm.controls['status'].setValidators(Validators.required);
+      }else{
+        this.createForm.controls['status'].clearValidators();
+      }
+      this.createForm.controls['status'].updateValueAndValidity();
     })
   }
 

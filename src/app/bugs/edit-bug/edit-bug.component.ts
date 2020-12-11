@@ -27,6 +27,16 @@ export class EditBugComponent implements OnInit, OnDestroy {
       status: [null, Validators.required]
     })
 
+    this.updateForm.controls['reporter'].valueChanges.subscribe(value => {
+      console.log(value)
+      if(value == "QA"){
+        this.updateForm.controls['status'].setValidators(Validators.required);
+      }else{
+        this.updateForm.controls['status'].clearValidators();
+      }
+      this.updateForm.controls['status'].updateValueAndValidity();
+    })
+
     this.routeSubscription = this.route.params.subscribe(params => {
       this.routeId = params['id']
     });
