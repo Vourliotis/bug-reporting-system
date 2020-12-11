@@ -3,20 +3,23 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { BugsService } from 'src/app/services/bugs.service';
+import { FormValidationService } from 'src/app/services/form-validation.service';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-edit-bug',
   templateUrl: './edit-bug.component.html',
   styleUrls: ['./edit-bug.component.scss']
 })
-export class EditBugComponent implements OnInit, OnDestroy {
+export class EditBugComponent implements OnInit {
+ //commented out also ^^ implements OnDestroy
 
   updateForm: FormGroup
-  routeSubscription: Subscription
+  // routeSubscription: Subscription
   routeId: string
-  bugsSubscription: Subscription
+  // bugsSubscription: Subscription
 
-  constructor(private fb: FormBuilder, private bugs: BugsService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private fb: FormBuilder, private bugs: BugsService, private router: Router, private route: ActivatedRoute, private formValidationService: FormValidationService) { }
 
   ngOnInit(): void {
     this.updateForm = this.fb.group({
@@ -24,43 +27,49 @@ export class EditBugComponent implements OnInit, OnDestroy {
       description: [null, Validators.required],
       priority: [null, Validators.required],
       reporter: [null, Validators.required],
-      status: [null, Validators.required]
+      status: [null]
     })
 
-    this.updateForm.controls['reporter'].valueChanges.subscribe(value => {
-      console.log(value)
-      if(value == "QA"){
-        this.updateForm.controls['status'].setValidators(Validators.required);
-      }else{
-        this.updateForm.controls['status'].clearValidators();
-      }
-      this.updateForm.controls['status'].updateValueAndValidity();
-    })
+    // this.routeSubscription = this.route.params.subscribe(params => {
+    //   this.routeId = params['id']
+    // });
 
-    this.routeSubscription = this.route.params.subscribe(params => {
-      this.routeId = params['id']
+    this.patchDataToForm()
+  }
+
+  patchDataToForm(){
+    //Gets the value of current Route with snapshot(URL:id)
+    this.routeId = this.route.snapshot.paramMap.get("id")
+    //Requests a single bug with the current ID
+    this.bugs.getBugById(this.routeId).subscribe(formData =>{
+      //inserts it to the form value
+      this.updateForm.patchValue(formData)
     });
+   }
 
-    this.patchForm(this.updateForm)
+
+  ValidateField(formInput:string){
+    //adds and Removes validation of QA input
+    this.formValidationService.addRemoveValidationsOfQA(this.updateForm);
+    //adds eachs input CSS Bootstrap validations
+    return this.formValidationService.CSSinputValidation(this.updateForm, formInput);
   }
 
-  ngOnDestroy(): void {
-    this.bugsSubscription.unsubscribe
-  }
-
-  formSubmit(id: string, form: FormGroup){
-    this.bugsSubscription = this.bugs.updateBug(id, form.value).subscribe(response => {
-      console.log("SUCCESS");
-    })
-
-    setTimeout (() => {
+  formSubmit():void{
+    //checks if form is valid
+    if (!this.updateForm.valid){
+      //if not valid >> touches all inputs for validation
+     return this.formValidationService.touchAllFormFields(this.updateForm)}
+     // Updates form with my edited form values
+    else this.bugs.updateBug(this.routeId, this.updateForm.value).pipe(delay(100)).subscribe(data =>{
+      //Navigates back to main component after 100 ms delay
       this.router.navigate([""])
-    },100);
-  }
-
-  patchForm(form: FormGroup){
-    this.bugs.getBugById(this.routeId).subscribe(bug => {
-      form.patchValue(bug)
     })
   }
+
+  // patchForm(form: FormGroup){
+  //   this.bugs.getBugById(this.routeId).subscribe(bug => {
+  //     form.patchValue(bug)
+  //   })
+  // }
 }

@@ -1,20 +1,23 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription  } from 'rxjs';
 import { BugsService } from 'src/app/services/bugs.service';
+import { FormValidationService } from 'src/app/services/form-validation.service';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-bug',
   templateUrl: './create-bug.component.html',
   styleUrls: ['./create-bug.component.scss']
 })
-export class CreateBugComponent implements OnInit, OnDestroy {
+export class CreateBugComponent implements OnInit{
+  //commented out also ^^ implements OnDestroy
 
   createForm: FormGroup
   bugsSubscription: Subscription
 
-  constructor(private fb: FormBuilder, private bugs: BugsService, private router: Router) { }
+  constructor(private fb: FormBuilder, private bugs: BugsService, private router: Router, private formValidationService: FormValidationService) { }
 
   ngOnInit(): void {
     this.createForm = this.fb.group({
@@ -22,31 +25,29 @@ export class CreateBugComponent implements OnInit, OnDestroy {
       description: [null, Validators.required],
       priority: [null, Validators.required],
       reporter: [null, Validators.required],
-      status: [null, Validators.required]
-    })
-
-    this.createForm.controls['reporter'].valueChanges.subscribe(value => {
-      console.log(value)
-      if(value == "QA"){
-        this.createForm.controls['status'].setValidators(Validators.required);
-      }else{
-        this.createForm.controls['status'].clearValidators();
-      }
-      this.createForm.controls['status'].updateValueAndValidity();
+      status: [null]
     })
   }
 
-  ngOnDestroy(): void {
-    this.bugsSubscription.unsubscribe
+  ValidateField(formInput:string){
+    //adds and Removes validation of QA input
+    this.formValidationService.addRemoveValidationsOfQA(this.createForm);
+    //adds eachs input CSS Bootstrap validations
+    return this.formValidationService.CSSinputValidation(this.createForm, formInput);
   }
 
-  formSubmit(form: FormGroup): void{
-    this.bugsSubscription = this.bugs.postBug(form.value).subscribe(response => {
-      console.log("POSTED")
-    })
-    
-    setTimeout (() => {
+  formSubmit(): void{
+    if (!this.createForm.valid){
+      //if not valid >> touches all inputs for validation
+     return this.formValidationService.touchAllFormFields(this.createForm)}
+     // Posts form data to server after 100 ms delay
+    else this.bugsSubscription = this.bugs.postBug(this.createForm.value).pipe(delay(100)).subscribe(response => {
       this.router.navigate([""])
-    },100);
+    })
   }
+
+
+  // ngOnDestroy(): void {
+  //   this.bugsSubscription.unsubscribe
+  // }
 }
