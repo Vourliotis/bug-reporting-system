@@ -12,7 +12,7 @@ export class BugsService {
 
   constructor(private http: HttpClient) { }
 
-  getBugs(): Observable<Bugs[]> {
+  getBugsAll(): Observable<Bugs[]> {
     return this.http.get<Bugs[]>(this.endpoint);
   }
 
@@ -20,13 +20,16 @@ export class BugsService {
     return this.http.get<Bugs[]>(`${this.endpoint}?sort=${value},${order}`)
   }
 
-  getAllBugs(order:boolean, filter = "title") : Observable<Bugs[]>{
+  getBugs(order:boolean, filter = "title") : Observable<Bugs[]>{
     let query = this.endpoint + "?sort="+filter+","
                 + (order ? "asc": "desc");
     return this.http.get<Bugs[]>(query)
   }
 
   deleteBug(id:number){
-    return this.http.delete(this.endpoint + id)
+    // console.log(this.endpoint+'/'+id)
+    return this.http.delete(`${this.endpoint}/${id}`).subscribe(data => {
+      console.log(data)
+    })
   }
 }
