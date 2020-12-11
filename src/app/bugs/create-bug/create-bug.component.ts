@@ -49,9 +49,4 @@ export class CreateBugComponent implements OnInit, OnDestroy {
       this.router.navigate([""])
     },100);
   }
-
-  patchForm(){
-    
-  }
-
 }
