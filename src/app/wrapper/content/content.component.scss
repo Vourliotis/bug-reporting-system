@@ -4,27 +4,26 @@ table {
   box-shadow: 2px 4px 500px rgba(0, 0, 0, 0.5);
   table-layout: fixed;
 
-  tr{
-      th{
-        background-color:#36304a; 
-        color :white;
-        font-size: 1.1rem;
-        &:not(:nth-last-child(-n+2)){
-          cursor: pointer;
-        }
-        overflow: hidden;
-        i{
-          text-align: right;
-        }
+  tr {
+    th {
+      background-color: #36304a;
+      color: white;
+      font-size: 1.1rem;
+      &:not(:nth-last-child(-n+2)) {
+        cursor: pointer;
       }
-      th:not(:nth-last-child(-n+2)):hover{
-        background-color: #6E6CE0;
-        border-color: #6E6CE0;
-      } 
-      td{
-        overflow: hidden;
-      }
-  } 
+      overflow: hidden;
+    }
+
+    th:not(:nth-last-child(-n+2)):hover {
+      background-color: #6E6CE0;
+      border-color: #6E6CE0;
+    }
+
+    td {
+      overflow: hidden;
+    }
+  }
 }
 
 .buttonRow {
@@ -32,5 +31,5 @@ table {
 }
 
 .btn-create {
-  background-color:#36304a; 
+  background-color: #36304a;
 }
