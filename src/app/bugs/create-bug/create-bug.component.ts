@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { title } from 'process';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create-bug',
@@ -15,12 +14,16 @@ export class CreateBugComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm = this.fb.group({
-      title: [],
-      description: [],
-      priority: [],
-      reporter: [],
-      status: []
+      title: [null, Validators.required],
+      description: [null, Validators.required],
+      priority: [null, Validators.required],
+      reporter: [null, Validators.required],
+      status: [, Validators.required]
     })
+  }
+
+  submitForm(): void{
+    console.log('success')
   }
 
 }
