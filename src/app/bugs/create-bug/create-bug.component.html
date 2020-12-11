@@ -1,49 +1,56 @@
 <div class="container col-6">
-  <form [formGroup]="createForm">
-    <div class="form-group">
-      <label for="title" class="font-weight-bold">Title</label>
-      <input type="text" class="form-control" id="title" placeholder="Title" formControlName="title">
-    </div>
+  <div class="card">
+    <div class="card-body">
+      <form [formGroup]="createForm">
+        <div class="form-group">
+          <label for="title" class="font-weight-bold">Title</label>
+          <input type="text" class="form-control" id="title" formControlName="title">
+        </div>
 
-    <div class="form-group">
-      <label label="description" class="font-weight-bold">Description</label>
-      <input type="text" class="form-control" id="description" placeholder="Description" formControlName="description">
-    </div>
+        <div class="form-group">
+          <label label="description" class="font-weight-bold">Description</label>
+          <textarea type="text" class="form-control" id="description" formControlName="description">
+        </div>
 
-    <div class="form-group">
-      <label label="priority" class="font-weight-bold">Priority</label>
-      <select class="form-control" id="priority" formControlName="priority">
-        <option value="1">Minor</option>
-        <option value="2">Major</option>
-        <option value="3">Critical</option>
-      </select>
-    </div>
+        <div class="form-group">
+          <label label="priority" class="font-weight-bold">Priority</label>
+          <select class="form-control" id="priority" formControlName="priority">
+            <!-- <option disabled="disabled" value="" selected="selected">Select priority...</option> -->
+            <option value="1">Minor</option>
+            <option value="2">Major</option>
+            <option value="3">Critical</option>
+          </select>
+        </div>
 
-    <div class="form-group">
-      <label label="reporter" class="font-weight-bold">Reporter</label>
-      <select class="form-control" id="reporter" formControlName="reporter">
-        <option value="QA">QA</option>
-        <option value="PO">PO</option>
-        <option value="DEV">DEV</option>
-      </select>
-    </div>
+        <div class="form-group">
+          <label label="reporter" class="font-weight-bold">Reporter</label>
+          <select class="form-control" id="reporter" formControlName="reporter">
+            <!-- <option disabled="disabled" value="" selected="selected">Select reporter...</option> -->
+            <option value="QA">QA</option>
+            <option value="PO">PO</option>
+            <option value="DEV">DEV</option>
+          </select>
+        </div>
 
-    <div class="form-group">
-      <label label="status" class="font-weight-bold">Status</label>
-      <select class="form-control" id="status" formControlName="status">
-        <option>Ready for testing</option>
-        <option>Done</option>
-        <option>Rejected</option>
-      </select>
-    </div>
+        <div class="form-group">
+          <label label="status" class="font-weight-bold">Status</label>
+          <select class="form-control" id="status" formControlName="status">
+            <!-- <option disabled="disabled" value="" selected="selected">Select status...</option> -->
+            <option>Ready for testing</option>
+            <option>Done</option>
+            <option>Rejected</option>
+          </select>
+        </div>
+        <!-- <br> -->
+        <div class="row">
+          <button type="button" class="btn btn-danger btn-block">Submit</button>
+        </div>
+      </form>
 
-    <div class="row float-right">
-      <button type="button" class="btn btn-danger mr-3">Submit</button>
+      <!-- <br><br>
+      <div class="row mt-5">
+        {{createForm.value | json}}
+      </div> -->
     </div>
-  </form>
-
-  <br><br>
-  <div class="row mt-5">
-    {{createForm.value | json}}
   </div>
 </div>
