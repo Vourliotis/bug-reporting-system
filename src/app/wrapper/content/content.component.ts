@@ -14,7 +14,6 @@ export class ContentComponent implements OnInit {
   arrayOfBugs: Bugs[];
   pageNumber = 0;
   returnPage = 0;
-  decreaseEnabled = false;
   increaseEnabled = true;
   
   currentSort = {
