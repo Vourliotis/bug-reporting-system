@@ -13,6 +13,9 @@ export class ContentComponent implements OnInit {
 
   arrayOfBugs: Bugs[];
   pageNumber = 0;
+  returnPage = 0;
+  decreaseEnabled = false;
+  increaseEnabled = true;
   
   currentSort = {
     order: false,
@@ -25,6 +28,7 @@ export class ContentComponent implements OnInit {
     this.bugs.getBugsByPage(this.pageNumber).subscribe((data) => {
       this.arrayOfBugs = data;
     })
+    this.checkNextPage()
   }
 
   sortBugs(category:string) {
@@ -65,10 +69,29 @@ export class ContentComponent implements OnInit {
     if(direction == "increase"){
       this.pageNumber += 1
     }else if(direction == "decrease"){
-      this.pageNumber -=1
+      this.pageNumber -= 1
     }
     this.bugs.getBugsByPage(this.pageNumber).subscribe((data) => {
+      if( (data === undefined || data.length == 0) &&  direction == "increase"){
+        this.pageNumber -= 1
+        this.returnPage = this.pageNumber
+        this.increaseEnabled = false;
+        return;
+      }
       this.arrayOfBugs = data;
+    })
+    this.checkNextPage()
+    this.returnPage = this.pageNumber
+  }
+
+  checkNextPage(){
+    let nextPage = this.pageNumber + 1;
+    this.bugs.getBugsByPage(nextPage).subscribe((data) => {
+      if( (data === undefined || data.length == 0)){
+        this.increaseEnabled = false;
+        return;
+      }
+      this.increaseEnabled = true;
     })
   }
 }

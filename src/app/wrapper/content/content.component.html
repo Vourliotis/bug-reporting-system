@@ -35,8 +35,8 @@
   <div class="row text-center">
     <div class="col-4 mx-auto">
       <button type="button" class="btn btn-dark btn-md btn-create" (click)="changePage('decrease')" [disabled]="pageNumber<=0"><</button>
-      <span class="font-weight-bold text-light float-center "> {{pageNumber}} </span>
-      <button type="button" class="btn btn-dark btn-md btn-create " (click)="changePage('increase')" [disabled]="arrayOfBugs === undefined || arrayOfBugs.length == 0">></button>
+      <span class="font-weight-bold text-light float-center "> {{returnPage}} </span>
+      <button type="button" class="btn btn-dark btn-md btn-create " (click)="changePage('increase')" [disabled]="!increaseEnabled">></button>
     </div>
   </div>
   
