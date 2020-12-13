@@ -46,4 +46,8 @@ export class BugsService {
   getBugsByPage(pageNumber: number) : Observable<Bugs[]>{
     return this.http.get<Bugs[]>(this.endpoint+"?page="+pageNumber)
   }
+
+  getComments(id: string){
+    return this.http.get<Bugs>(this.endpoint+"/"+id)
+  }
 }

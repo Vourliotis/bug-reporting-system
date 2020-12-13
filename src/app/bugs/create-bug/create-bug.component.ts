@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription  } from 'rxjs';
 import { BugsService } from 'src/app/services/bugs.service';
@@ -13,21 +13,43 @@ import { delay } from 'rxjs/operators';
 })
 export class CreateBugComponent implements OnInit{
   //commented out also ^^ implements OnDestroy
-
+  // const commentsArray=[{description:1},{description:2},{description:3}];
   createForm: FormGroup
   bugsSubscription: Subscription
 
-  constructor(private fb: FormBuilder, private bugs: BugsService, private router: Router, private formValidationService: FormValidationService) { }
+  get comments(){
+    return this.createForm.get('comments') as FormArray
+  }
 
+ 
+
+  constructor(private fb: FormBuilder, private bugs: BugsService, private router: Router, private formValidationService: FormValidationService) { }
+  
   ngOnInit(): void {
     this.createForm = this.fb.group({
       title: [null, Validators.required],
       description: [null, Validators.required],
       priority: [null, Validators.required],
       reporter: [null, Validators.required],
-      status: [null]
+      status: [null],
+      comments: this.fb.array([
+        // this.commentItem(null,null)
+      ])
     })
   }
+  private commentItem(name,description){
+    return this.fb.group({reporter:name, description:description})
+  }
+  //function called in html
+  addComment(){
+    this.comments.push(this.commentItem("",""))
+  }
+  removeComment(index:number){
+    this.comments.removeAt(index);
+  }
+
+
+
 
   ValidateField(formInput:string){
     //adds and Removes validation of QA input

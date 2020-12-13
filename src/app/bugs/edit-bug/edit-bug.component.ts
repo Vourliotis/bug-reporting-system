@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { BugsService } from 'src/app/services/bugs.service';
@@ -13,11 +13,14 @@ import { delay } from 'rxjs/operators';
 })
 export class EditBugComponent implements OnInit {
  //commented out also ^^ implements OnDestroy
-
+ commentsArray;
   updateForm: FormGroup
   // routeSubscription: Subscription
   routeId: string
   // bugsSubscription: Subscription
+  get comments(){
+    return this.updateForm.get('comments') as FormArray
+  }
 
   constructor(private fb: FormBuilder, private bugs: BugsService, private router: Router, private route: ActivatedRoute, private formValidationService: FormValidationService) { }
 
@@ -27,15 +30,17 @@ export class EditBugComponent implements OnInit {
       description: [null, Validators.required],
       priority: [null, Validators.required],
       reporter: [null, Validators.required],
-      status: [null]
+      status: [null],
+      comments: this.fb.array([])
     })
-
     // this.routeSubscription = this.route.params.subscribe(params => {
     //   this.routeId = params['id']
     // });
-
     this.patchDataToForm()
   }
+
+  
+  //function called in html
 
   patchDataToForm(){
     //Gets the value of current Route with snapshot(URL:id)
@@ -43,9 +48,25 @@ export class EditBugComponent implements OnInit {
     //Requests a single bug with the current ID
     this.bugs.getBugById(this.routeId).subscribe(formData =>{
       //inserts it to the form value
+      this.commentsArray= formData.comments;
+
+      this.commentsArray.forEach(element => {
+        this.comments.push(this.commentItem("",""))
+      });
+
       this.updateForm.patchValue(formData)
     });
    }
+   
+   private commentItem(name,description){
+    return this.fb.group({reporter:name, description:description})
+  }
+   addComment(){
+    this.comments.push(this.commentItem("",""))
+  }
+  removeComment(index:number){
+    this.comments.removeAt(index);
+  }
 
 
   ValidateField(formInput:string){
@@ -66,6 +87,17 @@ export class EditBugComponent implements OnInit {
       this.router.navigate([""])
     })
   }
+
+
+  // get comments():FormArray{
+  //   return this.createForm.get('comments') as FormArray
+  // }
+
+
+  // this.comments.push(new FormGroup({
+  //   commentDescription: new FormControl,
+  //   commentName : new FormControl
+  // }))
 
   // patchForm(form: FormGroup){
   //   this.bugs.getBugById(this.routeId).subscribe(bug => {

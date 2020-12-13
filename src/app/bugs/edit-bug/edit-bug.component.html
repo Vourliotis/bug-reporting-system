@@ -43,6 +43,32 @@
               <option value="Rejected">Rejected</option>
           </select>
       </div>  
+
+      <div *ngFor="let item of comments.controls;let idx= index" [formGroup]="item">
+       
+        <div class="form-group">
+          <label for="commentDescription">Comment description</label> 
+          <textarea   class="form-control " 
+                      id="commentDescription"
+                      formControlName="description"
+                      rows="3"></textarea>       
+          </div>
+          <div class="form-group">
+          <label for="commentName" >Comment author</label>
+          <input  type="text" 
+                  class="form-control"
+                  formControlName="reporter"
+                  id="commentName" >   
+          </div>
+         
+          <div class="btn btn-sm btn-danger col-4 float-right mb-4" (click)="removeComment(idx)">
+            delete comment
+          </div>
+      </div>
+      <div class="btn btn-primary text-dark col-12 bg-primary  mt-4" (click)="addComment()">
+        Add a Comment
+    </div>
+        <!-- //COMMENTS -->
       <div class="row mt-4">
           <button type="submit" class="btn submitButton m-auto">Submit</button>
       </div>   
