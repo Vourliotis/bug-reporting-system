@@ -1,77 +1,77 @@
-<div class="container col-12 col-sm-11 col-md-8 col-lg-6 mt-5" >
-  <form [formGroup]="updateForm" class="text-light p-4 rounded" (submit)="formSubmit()">
-      <div class="form-group">
-          <label for="titleInput" >Title</label>
-          <input  type="text" 
-                  class="form-control"
-                  id="titleInput"
-                  formControlName="title"
-                  [ngClass]="ValidateField('title')">   
-      </div>
-      <div class="form-group">
-          <label for="descriptionInput">Description</label>
-          <textarea   class="form-control " 
-                      id="descriptionInput"
-                      rows="3"
-                      formControlName="description"
-                      [ngClass]="ValidateField('description')"></textarea>
-                      
-      </div>
-      <div class="form-group">
-          <label for="priorityInput">Priority</label>
-          <select class="form-control" id="priorityInput" formControlName="priority" [ngClass]="ValidateField('priority')">
-              <option value= "1">Minor</option>
-              <option value= "2">Major</option>
-              <option value= "3">Critical</option>
-          </select>
-        
-      </div>
-      <div class="form-group">
-          <label for="reporterInput">Reporter</label>
-          <select class="form-control" id="reporterInput" formControlName="reporter" [ngClass]="ValidateField('reporter')">
-              <option value="QA">QA</option>
-              <option value="PO">PO</option>
-              <option value="DEV">DEV</option>
-          </select>
-        
-      </div>
-      <div class="form-group">
-          <label for="statusInput">Status</label>
-          <select class="form-control" id="statusInput" formControlName="status" [ngClass]="ValidateField('status')">
-              <option value="Ready for testing">Ready for testing</option>
-              <option value="Done">Done</option>
-              <option value="Rejected">Rejected</option>
-          </select>
-      </div>  
-
-      <div *ngFor="let item of comments.controls;let idx= index" [formGroup]="item">
-       
+<div class="container col-12 col-sm-11 col-md-8 col-lg-6 mt-5">
+    <form [formGroup]="updateForm" class="text-light p-4 rounded" (submit)="formSubmit()">
         <div class="form-group">
-          <label for="commentDescription">Comment description</label> 
-          <textarea   class="form-control " 
-                      id="commentDescription"
-                      formControlName="description"
-                      rows="3"></textarea>       
-          </div>
-          <div class="form-group">
-          <label for="commentName" >Comment author</label>
-          <input  type="text" 
-                  class="form-control"
-                  formControlName="reporter"
-                  id="commentName" >   
-          </div>
-         
-          <div class="btn btn-sm btn-danger col-4 float-right mb-4" (click)="removeComment(idx)">
-            delete comment
-          </div>
-      </div>
-      <div class="btn btn-primary text-dark col-12 bg-primary  mt-4" (click)="addComment()">
-        Add a Comment
-    </div>
-        <!-- //COMMENTS -->
-      <div class="row mt-4">
-          <button type="submit" class="btn submitButton m-auto">Submit</button>
-      </div>   
-   </form>
-</div>
+            <label for="titleInput">Title</label>
+            <input type="text" class="form-control" id="titleInput" formControlName="title"
+                [ngClass]="ValidateField('title')">
+        </div>
+        <div class="form-group">
+            <label for="descriptionInput">Description</label>
+            <textarea class="form-control " id="descriptionInput" rows="3" formControlName="description"
+                [ngClass]="ValidateField('description')"></textarea>
 
+        </div>
+        <div class="form-group">
+            <label for="priorityInput">Priority</label>
+            <select class="form-control" id="priorityInput" formControlName="priority"
+                [ngClass]="ValidateField('priority')">
+                <option value="1">Minor</option>
+                <option value="2">Major</option>
+                <option value="3">Critical</option>
+            </select>
+
+        </div>
+        <div class="form-group">
+            <label for="reporterInput">Reporter</label>
+            <select class="form-control" id="reporterInput" formControlName="reporter"
+                [ngClass]="ValidateField('reporter')">
+                <option value="QA">QA</option>
+                <option value="PO">PO</option>
+                <option value="DEV">DEV</option>
+            </select>
+
+        </div>
+        <div class="form-group">
+            <label for="statusInput">Status</label>
+            <select class="form-control" id="statusInput" formControlName="status" [ngClass]="ValidateField('status')">
+                <option value="Ready for testing">Ready for testing</option>
+                <option value="Done">Done</option>
+                <option value="Rejected">Rejected</option>
+            </select>
+        </div>
+
+        <button class="btn col-12 btn-sm mb-2" type="button" (click)="addComment()" id="commentButton">
+            Add a Comment
+        </button>
+
+        <!-- //COMMENTS -->
+        <div *ngFor="let item of comments.controls;let idx= index " [formGroup]="item">
+           
+            <div class="form-group">
+                <div class="row mx-auto">
+                    <label for="commentDescription" class="mr-auto small">Description</label>
+                    <label for="commentName" class="ml-auto small">Name</label>
+                </div>
+                <div class="input-group">
+                    <textarea class="form-control " id="commentDescription" formControlName="description"
+                        rows="3"></textarea>
+                    <input type="text" class="form-control ml-4 rounded" formControlName="reporter"
+                        id="commentName">
+                </div>
+                <div class="row mx-auto">
+                    <button class="btn btn-sm btn-danger ml-auto" (click)="removeComment(idx)">
+                        delete comment
+                    </button>
+                </div>
+            </div>
+        </div>
+       
+        <!-- //COMMENTS -->
+
+
+
+        <div class="row mt-2">
+            <button type="submit" class="btn submitButton m-auto">Submit Form</button>
+        </div>
+    </form>
+</div>

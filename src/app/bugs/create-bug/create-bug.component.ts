@@ -32,24 +32,16 @@ export class CreateBugComponent implements OnInit{
       priority: [null, Validators.required],
       reporter: [null, Validators.required],
       status: [null],
-      comments: this.fb.array([
-        // this.commentItem(null,null)
-      ])
+      comments: this.fb.array([])
     })
   }
-  private commentItem(name,description){
-    return this.fb.group({reporter:name, description:description})
-  }
-  //function called in html
-  addComment(){
-    this.comments.push(this.commentItem("",""))
+  
+  addComment() {
+    this.comments.insert(0,(this.formValidationService.createComment()))
   }
   removeComment(index:number){
     this.comments.removeAt(index);
   }
-
-
-
 
   ValidateField(formInput:string){
     //adds and Removes validation of QA input
@@ -68,8 +60,9 @@ export class CreateBugComponent implements OnInit{
     })
   }
 
-
-  // ngOnDestroy(): void {
-  //   this.bugsSubscription.unsubscribe
-  // }
 }
+
+// private commentItem(){
+  //   return this.fb.group({reporter:"", description:""})
+  // }
+  //function called in html

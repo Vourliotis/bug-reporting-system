@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 
@@ -8,7 +8,7 @@ import { FormGroup, Validators } from '@angular/forms';
 })
 export class FormValidationService {
 
-  constructor() { }
+  constructor(private fb: FormBuilder) { }
 
   addRemoveValidationsOfQA(formGroup:FormGroup):void{
     // Adds a status validator if QA is selected, else removes it
@@ -36,6 +36,10 @@ export class FormValidationService {
     Object.keys(formGroup.controls).forEach((key) => {
         formGroup.get(key).markAsTouched();
     });
+  }
+
+  createComment(){
+    return this.fb.group({reporter:"", description:""})
   }
 
 }

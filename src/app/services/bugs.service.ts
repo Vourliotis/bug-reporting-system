@@ -12,9 +12,9 @@ export class BugsService {
 
   constructor(private http: HttpClient) { }
 
-  getBugsAll(): Observable<Bugs[]> {
-    return this.http.get<Bugs[]>(this.endpoint);
-  }
+  // getBugsAll(): Observable<Bugs[]> {
+  //   return this.http.get<Bugs[]>(this.endpoint);
+  // }
 
   getBugsSorted(value:string, order:string){
     return this.http.get<Bugs[]>(`${this.endpoint}?sort=${value},${order}`)
@@ -47,7 +47,5 @@ export class BugsService {
     return this.http.get<Bugs[]>(this.endpoint+"?page="+pageNumber)
   }
 
-  getComments(id: string){
-    return this.http.get<Bugs>(this.endpoint+"/"+id)
-  }
+  
 }
