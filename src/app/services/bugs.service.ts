@@ -39,7 +39,7 @@ export class BugsService {
     return this.http.put(this.endpoint+"/"+id, bug)
   }
 
-  getBugById(id: string) : Observable<Bugs>{
+  getBugById(id: string) : Observable<Bugs  >{
     return this.http.get<Bugs>(this.endpoint+"/"+id)
   }
 

@@ -13,7 +13,7 @@ import { delay } from 'rxjs/operators';
 })
 export class EditBugComponent implements OnInit {
   //commented out also ^^ implements OnDestroy
-  commentsArray: Array<object>;
+  commentsArray: Array<object>
   updateForm: FormGroup
   // routeSubscription: Subscription
   routeId: string
@@ -23,7 +23,12 @@ export class EditBugComponent implements OnInit {
     return this.updateForm.get('comments') as FormArray
   }
 
-  constructor(private fb: FormBuilder, private bugs: BugsService, private router: Router, private route: ActivatedRoute, private formValidationService: FormValidationService) { }
+  constructor(
+    private fb: FormBuilder, 
+    private bugsService: BugsService, 
+    private router: Router, 
+    private route: ActivatedRoute, 
+    private formValidationService: FormValidationService) { }
 
   ngOnInit(): void {
     this.updateForm = this.fb.group({
@@ -40,9 +45,9 @@ export class EditBugComponent implements OnInit {
     this.patchDataToForm()
   }
 
-  //function also called in html , insert instead of push to show the first item
+  //function also called in html , use of insert 0 to push the first item first
   addComment() {
-    this.comments.insert(0,(this.formValidationService.createComment()))
+    this.comments.insert(0,(this.fb.group({reporter:"", description:""})))
   }
   removeComment(index: number) {
     this.comments.removeAt(index);
@@ -52,8 +57,9 @@ export class EditBugComponent implements OnInit {
     //Gets the value of current Route with snapshot(URL:id)
     this.routeId = this.route.snapshot.paramMap.get("id")
     //Requests a single bug with the current ID
-    this.bugs.getBugById(this.routeId).subscribe(formData => {
-      if (formData.comments === null || undefined) return
+    this.bugsService.getBugById(this.routeId).subscribe(formData => {
+      if (formData.comments === null || undefined){
+        console.log("Comments are null Error") }
       else {
         this.commentsArray = formData.comments
         this.commentsArray.forEach(element => {
@@ -68,7 +74,7 @@ export class EditBugComponent implements OnInit {
   ValidateField(formInput: string) {
     //adds and Removes validation of QA input
     this.formValidationService.addRemoveValidationsOfQA(this.updateForm);
-    //adds eachs input CSS Bootstrap validations
+     //returns CSS Bootstrap class "is-valid" or "is-invalid"
     return this.formValidationService.CSSinputValidation(this.updateForm, formInput);
   }
 
@@ -78,13 +84,14 @@ export class EditBugComponent implements OnInit {
       //if not valid >> touches all inputs for validation
       return this.formValidationService.touchAllFormFields(this.updateForm)
     }
-    // Updates form with my edited form values
-    else this.bugs.updateBug(this.routeId, this.updateForm.value).pipe(delay(100)).subscribe(data => {
-      //Navigates back to main component after 100 ms delay
+    // Updates form with my edited form values and navigates back to main component after 100 ms delay
+    else this.bugsService.updateBug(this.routeId, this.updateForm.value).pipe(delay(100)).subscribe(data => {
       this.router.navigate([""])
     })
   }
 
+
+}
 
   // private commentItem(){
   //   return this.fb.group({reporter:"", description:""})
@@ -93,7 +100,6 @@ export class EditBugComponent implements OnInit {
   // get comments():FormArray{
   //   return this.createForm.get('comments') as FormArray
   // }
-
 
   // this.comments.push(new FormGroup({
   //   commentDescription: new FormControl,
@@ -105,4 +111,4 @@ export class EditBugComponent implements OnInit {
   //     form.patchValue(bug)
   //   })
   // }
-}
+

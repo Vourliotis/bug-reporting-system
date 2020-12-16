@@ -13,17 +13,19 @@ import { delay } from 'rxjs/operators';
 })
 export class CreateBugComponent implements OnInit{
   //commented out also ^^ implements OnDestroy
-  // const commentsArray=[{description:1},{description:2},{description:3}];
+
   createForm: FormGroup
-  bugsSubscription: Subscription
+  // bugsSubscription: Subscription
 
   get comments(){
     return this.createForm.get('comments') as FormArray
   }
 
- 
-
-  constructor(private fb: FormBuilder, private bugs: BugsService, private router: Router, private formValidationService: FormValidationService) { }
+  constructor(
+    private fb: FormBuilder, 
+    private bugsService: BugsService, 
+    private router: Router, 
+    private formValidationService: FormValidationService) { }
   
   ngOnInit(): void {
     this.createForm = this.fb.group({
@@ -35,9 +37,11 @@ export class CreateBugComponent implements OnInit{
       comments: this.fb.array([])
     })
   }
-  
+
+
+  //function also called in html , use of insert 0 to push comment on the top
   addComment() {
-    this.comments.insert(0,(this.formValidationService.createComment()))
+    this.comments.insert(0,(this.fb.group({reporter:"", description:""})))
   }
   removeComment(index:number){
     this.comments.removeAt(index);
@@ -46,7 +50,7 @@ export class CreateBugComponent implements OnInit{
   ValidateField(formInput:string){
     //adds and Removes validation of QA input
     this.formValidationService.addRemoveValidationsOfQA(this.createForm);
-    //adds eachs input CSS Bootstrap validations
+    //returns CSS Bootstrap class "is-valid" or "is-invalid"
     return this.formValidationService.CSSinputValidation(this.createForm, formInput);
   }
 
@@ -55,14 +59,9 @@ export class CreateBugComponent implements OnInit{
       //if not valid >> touches all inputs for validation
      return this.formValidationService.touchAllFormFields(this.createForm)}
      // Posts form data to server after 100 ms delay
-    else this.bugsSubscription = this.bugs.postBug(this.createForm.value).pipe(delay(100)).subscribe(response => {
+    else this.bugsService.postBug(this.createForm.value).pipe(delay(100)).subscribe(response => {
       this.router.navigate([""])
     })
   }
 
 }
-
-// private commentItem(){
-  //   return this.fb.group({reporter:"", description:""})
-  // }
-  //function called in html

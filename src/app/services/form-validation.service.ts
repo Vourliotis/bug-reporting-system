@@ -37,10 +37,5 @@ export class FormValidationService {
         formGroup.get(key).markAsTouched();
     });
   }
-
-  createComment(){
-    return this.fb.group({reporter:"", description:""})
-  }
-
 }
 

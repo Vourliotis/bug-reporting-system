@@ -25,8 +25,8 @@
         <td>{{item.reporter}}</td>
         <td>{{item.createdAt | date:'yyyy-MM-dd HH:mm'}}</td>
         <td>{{item.status}}</td>
-        <td colspan="2">
-          <button type="button" class="btn btn-warning btn-sm col-7" [routerLink] = "['edit-bug', item.id]"> Edit </button>
+        <td colspan="2" id="tdwithButtons">
+          <button type="button" class="btn btn-sm col-7" [routerLink] = "['edit-bug', item.id]"> Edit </button>
           <button type="button" class="btn btn-danger btn-sm col-5" (click) = "deleteBug(item.id)">Delete</button>
         </td>
       </tr>
