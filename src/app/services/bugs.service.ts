@@ -12,9 +12,9 @@ export class BugsService {
 
   constructor(private http: HttpClient) { }
 
-  getBugsAll(): Observable<Bugs[]> {
-    return this.http.get<Bugs[]>(this.endpoint);
-  }
+  // getBugsAll(): Observable<Bugs[]> {
+  //   return this.http.get<Bugs[]>(this.endpoint);
+  // }
 
   getBugsSorted(value:string, order:string){
     return this.http.get<Bugs[]>(`${this.endpoint}?sort=${value},${order}`)
@@ -39,11 +39,13 @@ export class BugsService {
     return this.http.put(this.endpoint+"/"+id, bug)
   }
 
-  getBugById(id: string) : Observable<Bugs>{
+  getBugById(id: string) : Observable<Bugs  >{
     return this.http.get<Bugs>(this.endpoint+"/"+id)
   }
 
   getBugsByPage(pageNumber: number) : Observable<Bugs[]>{
     return this.http.get<Bugs[]>(this.endpoint+"?page="+pageNumber)
   }
+
+  
 }

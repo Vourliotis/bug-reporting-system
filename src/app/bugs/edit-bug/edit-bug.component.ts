@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { BugsService } from 'src/app/services/bugs.service';
@@ -12,14 +12,23 @@ import { delay } from 'rxjs/operators';
   styleUrls: ['./edit-bug.component.scss']
 })
 export class EditBugComponent implements OnInit {
- //commented out also ^^ implements OnDestroy
-
+  //commented out also ^^ implements OnDestroy
+  commentsArray: Array<object>
   updateForm: FormGroup
   // routeSubscription: Subscription
   routeId: string
   // bugsSubscription: Subscription
 
-  constructor(private fb: FormBuilder, private bugs: BugsService, private router: Router, private route: ActivatedRoute, private formValidationService: FormValidationService) { }
+  get comments() {
+    return this.updateForm.get('comments') as FormArray
+  }
+
+  constructor(
+    private fb: FormBuilder, 
+    private bugsService: BugsService, 
+    private router: Router, 
+    private route: ActivatedRoute, 
+    private formValidationService: FormValidationService) { }
 
   ngOnInit(): void {
     this.updateForm = this.fb.group({
@@ -27,49 +36,79 @@ export class EditBugComponent implements OnInit {
       description: [null, Validators.required],
       priority: [null, Validators.required],
       reporter: [null, Validators.required],
-      status: [null]
+      status: [null],
+      comments: this.fb.array([])
     })
-
     // this.routeSubscription = this.route.params.subscribe(params => {
     //   this.routeId = params['id']
     // });
-
     this.patchDataToForm()
   }
 
-  patchDataToForm(){
+  //function also called in html , use of insert 0 to push the first item first
+  addComment() {
+    this.comments.insert(0,(this.fb.group({reporter:"", description:""})))
+  }
+  removeComment(index: number) {
+    this.comments.removeAt(index);
+  }
+
+  patchDataToForm() {
     //Gets the value of current Route with snapshot(URL:id)
     this.routeId = this.route.snapshot.paramMap.get("id")
     //Requests a single bug with the current ID
-    this.bugs.getBugById(this.routeId).subscribe(formData =>{
-      //inserts it to the form value
+    this.bugsService.getBugById(this.routeId).subscribe(formData => {
+      if (formData.comments === null || undefined){
+        console.log("Comments are null Error") }
+      else {
+        this.commentsArray = formData.comments
+        this.commentsArray.forEach(element => {
+          this.addComment()
+        });
+      }
+      //inserts form values
       this.updateForm.patchValue(formData)
     });
-   }
+  }
 
-
-  ValidateField(formInput:string){
+  ValidateField(formInput: string) {
     //adds and Removes validation of QA input
     this.formValidationService.addRemoveValidationsOfQA(this.updateForm);
-    //adds eachs input CSS Bootstrap validations
+     //returns CSS Bootstrap class "is-valid" or "is-invalid"
     return this.formValidationService.CSSinputValidation(this.updateForm, formInput);
   }
 
-  formSubmit():void{
+  formSubmit(): void {
     //checks if form is valid
-    if (!this.updateForm.valid){
+    if (!this.updateForm.valid) {
       //if not valid >> touches all inputs for validation
-     return this.formValidationService.touchAllFormFields(this.updateForm)}
-     // Updates form with my edited form values
-    else this.bugs.updateBug(this.routeId, this.updateForm.value).pipe(delay(100)).subscribe(data =>{
-      //Navigates back to main component after 100 ms delay
+      return this.formValidationService.touchAllFormFields(this.updateForm)
+    }
+    // Updates form with my edited form values and navigates back to main component after 100 ms delay
+    else this.bugsService.updateBug(this.routeId, this.updateForm.value).pipe(delay(100)).subscribe(data => {
       this.router.navigate([""])
     })
   }
+
+
+}
+
+  // private commentItem(){
+  //   return this.fb.group({reporter:"", description:""})
+  // }
+
+  // get comments():FormArray{
+  //   return this.createForm.get('comments') as FormArray
+  // }
+
+  // this.comments.push(new FormGroup({
+  //   commentDescription: new FormControl,
+  //   commentName : new FormControl
+  // }))
 
   // patchForm(form: FormGroup){
   //   this.bugs.getBugById(this.routeId).subscribe(bug => {
   //     form.patchValue(bug)
   //   })
   // }
-}
+

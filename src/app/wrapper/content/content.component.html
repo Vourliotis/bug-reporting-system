@@ -9,11 +9,11 @@
     <table class="table text-center table-responsive-sm text-nowrap">
     <thead class="thead-dark">
       <tr>
-        <th style="width: 25%" scope="col" (click)="sortBugs('title');">Title <i [ngClass]="arrowStyle('title')" class="fas ml-2 float-right"></i></th>
-        <th style="width: 15%" scope="col" (click)="sortBugs('priority');">Priority <i [ngClass]="arrowStyle('priority')" class="fas ml-2 float-right"></i></th>
-        <th style="width: 15%" scope="col" (click)="sortBugs('reporter');">Reporter <i [ngClass]="arrowStyle('reporter')" class="fas ml-2 float-right"></i></th>
-        <th style="width: 25%" scope="col" (click)="sortBugs('createdAt');">Date Created <i [ngClass]="arrowStyle('createdAt')" class="fas ml-2 float-right"></i></th>
-        <th style="width: 20%" scope="col" (click)="sortBugs('status');">Status <i [ngClass]="arrowStyle('status')" class="fas ml-2 float-right"></i></th>
+        <th  scope="col" (click)="sortBugs('title');">Title <i [ngClass]="arrowStyle('title')" class="fa fa-fw fa-sort "></i></th>
+        <th  scope="col" (click)="sortBugs('priority');">Priority <i [ngClass]="arrowStyle('priority')" class="fa fa-fw fa-sort "></i></th>
+        <th scope="col" (click)="sortBugs('reporter');">Reporter <i [ngClass]="arrowStyle('reporter')" class="fa fa-fw fa-sort "></i></th>
+        <th  scope="col" (click)="sortBugs('createdAt');">Date Created <i [ngClass]="arrowStyle('createdAt')" class="fa fa-fw fa-sort "></i></th>
+        <th  scope="col" (click)="sortBugs('status');">Status <i [ngClass]="arrowStyle('status')" class="fa fa-fw fa-sort"></i></th>
         <th colspan="2" scope ="col" class="emptyCell" ></th>
         
       </tr>
@@ -25,8 +25,8 @@
         <td>{{item.reporter}}</td>
         <td>{{item.createdAt | date:'yyyy-MM-dd HH:mm'}}</td>
         <td>{{item.status}}</td>
-        <td colspan="2">
-          <button type="button" class="btn btn-warning btn-sm col-7" [routerLink] = "['edit-bug', item.id]"> Edit </button>
+        <td colspan="2" id="tdwithButtons">
+          <button type="button" class="btn btn-sm col-7" [routerLink] = "['edit-bug', item.id]"> Edit </button>
           <button type="button" class="btn btn-danger btn-sm col-5" (click) = "deleteBug(item.id)">Delete</button>
         </td>
       </tr>

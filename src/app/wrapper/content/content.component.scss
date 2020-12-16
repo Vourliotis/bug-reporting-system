@@ -69,3 +69,19 @@ table tr:last-child td:last-child {
 .btn-create {
   background-color: #36304a;
 }
+
+#tdwithButtons .btn{
+  border: none;
+  color:white;
+  
+  &:first-child{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    background-color: #8C73B7;
+  }
+  &:last-child{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    background-color: #8B0000;
+  }
+}
