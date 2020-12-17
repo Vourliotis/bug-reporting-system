@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { BugsService } from '../services/bugs.service';
 import { FormValidationService } from '../services/form-validation.service';
@@ -21,6 +22,7 @@ export class CreateBugComponent implements OnInit {
 
   createForm: FormGroup;
   // bugsSubscription: Subscription
+  unSaved: boolean = true;
 
   get comments() {
     return this.createForm.get('comments') as FormArray;
@@ -75,5 +77,13 @@ export class CreateBugComponent implements OnInit {
         .subscribe((response) => {
           this.router.navigate(['']);
         });
+  }
+
+  canDeactivate(): Observable<boolean> | boolean {
+    if (this.unSaved) {
+      const result = window.confirm('There are unsaved changes! Are you sure you want to leave?');
+      return of(result);
+    }
+    return true;
   }
 }
