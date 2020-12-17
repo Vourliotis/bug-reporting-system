@@ -75,6 +75,7 @@ export class CreateBugComponent implements OnInit {
         .postBug(this.createForm.value)
         .pipe(delay(100))
         .subscribe((response) => {
+          this.unSaved = false;
           this.router.navigate(['']);
         });
   }
