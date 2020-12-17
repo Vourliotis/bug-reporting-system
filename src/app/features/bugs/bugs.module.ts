@@ -2,20 +2,19 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CreateBugComponent } from './create-bug/create-bug.component';
 import { EditBugComponent } from './edit-bug/edit-bug.component';
-import { AppRoutingModule } from '../app-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { ContentComponent } from './content/content.component';
 
 
 
 @NgModule({
-  declarations: [CreateBugComponent, EditBugComponent],
+  declarations: [CreateBugComponent, EditBugComponent, ContentComponent],
   imports: [
     CommonModule,
-    AppRoutingModule,
-    ReactiveFormsModule
+    SharedModule
   ],
   exports: [
-    CreateBugComponent, EditBugComponent
+    CreateBugComponent, EditBugComponent, ContentComponent
   ]
 })
 export class BugsModule { }

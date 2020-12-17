@@ -1,10 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription  } from 'rxjs';
-import { BugsService } from 'src/app/services/bugs.service';
-import { FormValidationService } from 'src/app/services/form-validation.service';
 import { delay } from 'rxjs/operators';
+import { BugsService } from '../services/bugs.service';
+import { FormValidationService } from '../services/form-validation.service';
 
 @Component({
   selector: 'app-create-bug',

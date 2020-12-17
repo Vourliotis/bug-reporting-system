@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Bugs } from 'src/app/models/bugs.model';
-import { BugsService } from 'src/app/services/bugs.service';
+import { Bugs } from '../models/bugs.model';
+import { BugsService } from '../services/bugs.service';
+
 
 
 @Component({

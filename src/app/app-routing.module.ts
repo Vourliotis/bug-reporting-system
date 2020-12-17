@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CreateBugComponent } from './bugs/create-bug/create-bug.component';
-import { EditBugComponent } from './bugs/edit-bug/edit-bug.component';
-import { ContentComponent } from './wrapper/content/content.component';
+import { ContentComponent } from './features/bugs/content/content.component';
+import { CreateBugComponent } from './features/bugs/create-bug/create-bug.component';
+import { EditBugComponent } from './features/bugs/edit-bug/edit-bug.component';
 
 const routes: Routes = [
   { path: "", component : ContentComponent},
