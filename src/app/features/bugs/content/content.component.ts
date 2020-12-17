@@ -12,8 +12,7 @@ import { BugsService } from '../services/bugs.service';
 export class ContentComponent implements OnInit {
   arrayOfBugs: Bugs[];
   pageNumber = 0;
-  returnPage = 0;
-  increaseEnabled = true;
+  totalPages = 0;
   searchForm: FormGroup;
 
   currentSort = {
@@ -31,11 +30,12 @@ export class ContentComponent implements OnInit {
       status: [null]
     })
 
-    this.bugs.getBugsByPage(this.pageNumber).subscribe((response) => {
+    this.bugs.getBugsByQuery(this.bugs.createQueryString(null, null, null, this.pageNumber)).subscribe((response) => {
       this.arrayOfBugs = response.body;
       response.headers.keys().map( (key) => console.log(`${key}: ${response.headers.get(key)}`));
+      this.pageNumber = Number(response.headers.get('Page'))
+      this.totalPages = Number(response.headers.get('Totalpages'))
     });
-    this.checkNextPage();
   }
 
   sortBugs(category: string) {
@@ -50,8 +50,8 @@ export class ContentComponent implements OnInit {
       this.currentSort.currentCategory = category;
     }
 
-    this.bugs.getBugs(this.currentSort.order, category).subscribe((data) => {
-      this.arrayOfBugs = data;
+    this.bugs.getBugsByQuery(this.bugs.createQueryString(null, category, this.currentSort.order)).subscribe((data) => {
+      this.arrayOfBugs = data.body;
     });
   }
 
@@ -83,33 +83,19 @@ export class ContentComponent implements OnInit {
     } else if (direction == 'decrease') {
       this.pageNumber -= 1;
     }
-    this.bugs.getBugsByPage(this.pageNumber).subscribe((data) => {
-      if ((data.body === undefined || data.body.length == 0) && direction == 'increase') {
-        this.pageNumber -= 1;
-        this.returnPage = this.pageNumber;
-        this.increaseEnabled = false;
-        return;
-      }
-      this.arrayOfBugs = data.body;
-    });
-    this.checkNextPage();
-    this.returnPage = this.pageNumber;
-  }
 
-  checkNextPage() {
-    let nextPage = this.pageNumber + 1;
-    this.bugs.getBugsByPage(nextPage).subscribe((data) => {
-      if (data.body === undefined || data.body.length == 0) {
-        this.increaseEnabled = false;
-        return;
-      }
-      this.increaseEnabled = true;
+    this.bugs.getBugsByQuery(this.bugs.createQueryString(null, null, null, this.pageNumber)).subscribe((data) => {
+      this.pageNumber = Number(data.headers.get('Page'))
+      this.totalPages = Number(data.headers.get('Totalpages'))
+      this.arrayOfBugs = data.body;
     });
   }
 
   formSubmit():void {
-    this.bugs.getBugsByForm(this.searchForm.value).subscribe(data => {
-      this.arrayOfBugs = data;
+    this.bugs.getBugsByQuery(this.bugs.createQueryString(this.searchForm.value)).subscribe(resp => {
+      this.arrayOfBugs = resp.body;
+      this.pageNumber = Number(resp.headers.get('Page'))
+      this.totalPages = Number(resp.headers.get('Totalpages'))
     })
   }
 }

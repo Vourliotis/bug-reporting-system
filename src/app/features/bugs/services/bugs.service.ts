@@ -1,5 +1,6 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Bugs } from '../models/bugs.model';
 
@@ -11,20 +12,6 @@ export class BugsService {
     'https://bug-report-system-server.herokuapp.com/bugs';
 
   constructor(private http: HttpClient) {}
-
-  // getBugsAll(): Observable<Bugs[]> {
-  //   return this.http.get<Bugs[]>(this.endpoint);
-  // }
-
-  getBugsSorted(value: string, order: string) {
-    return this.http.get<Bugs[]>(`${this.endpoint}?sort=${value},${order}`);
-  }
-
-  getBugs(order: boolean, filter = 'title'): Observable<Bugs[]> {
-    let query =
-      this.endpoint + '?sort=' + filter + ',' + (order ? 'asc' : 'desc');
-    return this.http.get<Bugs[]>(query);
-  }
 
   deleteBug(id: string) {
     // console.log(this.endpoint+'/'+id)
@@ -39,26 +26,39 @@ export class BugsService {
     return this.http.put(this.endpoint + '/' + id, bug);
   }
 
+  getBugs(): Observable<Bugs[]> {
+    return this.http.get<Bugs[]>(this.endpoint);
+  }
+
   getBugById(id: string): Observable<Bugs> {
     return this.http.get<Bugs>(this.endpoint + '/' + id);
   }
 
-  getBugsByPage(pageNumber: number): Observable<HttpResponse<Bugs[]>> {
-    return this.http.get<Bugs[]>(this.endpoint + '?page=' + pageNumber, {observe: 'response'});
+  getBugsByQuery(params: URLSearchParams): Observable<HttpResponse<Bugs[]>> {
+    return this.http.get<Bugs[]>(this.endpoint + '?' + params, {
+      observe: 'response',
+    });
   }
 
-  getBugsByForm(bug: Bugs): Observable<Bugs[]> {
+  createQueryString(
+    bug: Bugs = null,
+    value: string = null,
+    order: boolean = null,
+    page: number = null
+  ): URLSearchParams {
     let params = new URLSearchParams();
     for (let key in bug) {
-      if(bug[key] != null){
+      if (bug[key] != null) {
         params.set(key, bug[key]);
       }
     }
-    console.log(params)
-    return this.http.get<Bugs[]>(this.endpoint + '?' + params);
-  }
+    if (value != null && order != null) {
+      params.set('sort', value + ',' + (order ? 'asc' : 'desc'));
+    }
 
-  getBugsByQuery(query: string): Observable<Bugs[]> {
-    return this.http.get<Bugs[]>(this.endpoint + '?' + query);
+    if (page != null) {
+      params.set('page', String(page));
+    }
+    return params;
   }
 }
