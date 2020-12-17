@@ -95,6 +95,7 @@ export class EditBugComponent implements OnInit {
         .updateBug(this.routeId, this.updateForm.value)
         .pipe(delay(100))
         .subscribe((data) => {
+          this.unSaved = false;
           this.router.navigate(['']);
         });
   }
