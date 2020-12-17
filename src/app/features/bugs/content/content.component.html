@@ -1,21 +1,26 @@
 <div class="container">
-  <div class = "row buttonRow">
-    <div class ="col-2">
-      <button type="button" class="btn btn-dark btn-md btn-create" [routerLink] = "['create-bug']">Create new</button>
+  <div class="row buttonRow">
+    <div class="col-2">
+      <button type="button" class="btn btn-dark btn-md btn-create" [routerLink]="['create-bug']">Create new</button>
       <br>
     </div>
   </div>
-  
-    <table class="table text-center table-responsive-sm text-nowrap">
+
+  <table class="table text-center table-responsive-sm text-nowrap">
     <thead class="thead-dark">
       <tr>
-        <th  scope="col" (click)="sortBugs('title');">Title <i [ngClass]="arrowStyle('title')" class="fa fa-fw fa-sort "></i></th>
-        <th  scope="col" (click)="sortBugs('priority');">Priority <i [ngClass]="arrowStyle('priority')" class="fa fa-fw fa-sort "></i></th>
-        <th scope="col" (click)="sortBugs('reporter');">Reporter <i [ngClass]="arrowStyle('reporter')" class="fa fa-fw fa-sort "></i></th>
-        <th  scope="col" (click)="sortBugs('createdAt');">Date Created <i [ngClass]="arrowStyle('createdAt')" class="fa fa-fw fa-sort "></i></th>
-        <th  scope="col" (click)="sortBugs('status');">Status <i [ngClass]="arrowStyle('status')" class="fa fa-fw fa-sort"></i></th>
-        <th colspan="2" scope ="col" class="emptyCell" ></th>
-        
+        <th scope="col" (click)="sortBugs('title');">Title <i [ngClass]="arrowStyle('title')"
+            class="fa fa-fw fa-sort "></i></th>
+        <th scope="col" (click)="sortBugs('priority');">Priority <i [ngClass]="arrowStyle('priority')"
+            class="fa fa-fw fa-sort "></i></th>
+        <th scope="col" (click)="sortBugs('reporter');">Reporter <i [ngClass]="arrowStyle('reporter')"
+            class="fa fa-fw fa-sort "></i></th>
+        <th scope="col" (click)="sortBugs('createdAt');">Date Created <i [ngClass]="arrowStyle('createdAt')"
+            class="fa fa-fw fa-sort "></i></th>
+        <th scope="col" (click)="sortBugs('status');">Status <i [ngClass]="arrowStyle('status')"
+            class="fa fa-fw fa-sort"></i></th>
+        <th colspan="2" scope="col" class="emptyCell"></th>
+
       </tr>
     </thead>
     <tbody class="table-striped table-light ">
@@ -26,19 +31,21 @@
         <td>{{item.createdAt | date:'yyyy-MM-dd HH:mm'}}</td>
         <td>{{item.status}}</td>
         <td colspan="2" id="tdwithButtons">
-          <button type="button" class="btn btn-sm col-7" [routerLink] = "['edit-bug', item.id]"> Edit </button>
-          <button type="button" class="btn btn-danger btn-sm col-5" (click) = "deleteBug(item.id)">Delete</button>
+          <button type="button" class="btn btn-sm col-7" [routerLink]="['edit-bug', item.id]"> Edit </button>
+          <button type="button" class="btn btn-danger btn-sm col-5" (click)="deleteBug(item.id)">Delete</button>
         </td>
       </tr>
     </tbody>
   </table>
   <div class="row text-center">
     <div class="col-4 mx-auto">
-      <button type="button" class="btn btn-dark btn-md btn-create" (click)="changePage('decrease')" [disabled]="pageNumber<=0"><</button>
-      <span class="font-weight-bold text-light float-center "> {{returnPage}} </span>
-      <button type="button" class="btn btn-dark btn-md btn-create " (click)="changePage('increase')" [disabled]="!increaseEnabled">></button>
+      <button type="button" class="btn btn-dark btn-md btn-create" (click)="changePage('decrease')"
+        [disabled]="pageNumber<=0">
+        <</button> <span class="font-weight-bold text-light float-center "> {{returnPage}} </span>
+          <button type="button" class="btn btn-dark btn-md btn-create " (click)="changePage('increase')"
+            [disabled]="!increaseEnabled">></button>
     </div>
   </div>
-  
+
 
 </div>
