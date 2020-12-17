@@ -11,8 +11,8 @@
         <label for="descriptionInput">Description</label>
         <textarea class="form-control " id="descriptionInput" rows="3" formControlName="description"
           [ngClass]="ValidateField('description')"></textarea>
-
       </div>
+      
       <div class="form-group">
         <label for="priorityInput">Priority</label>
         <select class="form-control" id="priorityInput" formControlName="priority"
@@ -21,8 +21,8 @@
           <option value="2">Major</option>
           <option value="3">Critical</option>
         </select>
-
       </div>
+
       <div class="form-group">
         <label for="reporterInput">Reporter</label>
         <select class="form-control" id="reporterInput" formControlName="reporter"
@@ -31,8 +31,8 @@
           <option value="PO">PO</option>
           <option value="DEV">DEV</option>
         </select>
-
       </div>
+
       <div class="form-group">
         <label for="statusInput">Status</label>
         <select class="form-control" id="statusInput" formControlName="status" [ngClass]="ValidateField('status')">

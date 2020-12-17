@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Bugs } from '../models/bugs.model';
 import { BugsService } from '../services/bugs.service';
@@ -13,15 +14,23 @@ export class ContentComponent implements OnInit {
   pageNumber = 0;
   returnPage = 0;
   increaseEnabled = true;
+  searchForm: FormGroup;
 
   currentSort = {
     order: false,
     currentCategory: 'none',
   };
 
-  constructor(private bugs: BugsService, private router: Router) {}
+  constructor(private bugs: BugsService, private router: Router, private fb: FormBuilder) {}
 
   ngOnInit(): void {
+    this.searchForm = this.fb.group({
+      title: [null],
+      priority: [null],
+      reporter: [null],
+      status: [null]
+    })
+
     this.bugs.getBugsByPage(this.pageNumber).subscribe((data) => {
       this.arrayOfBugs = data;
     });
@@ -95,5 +104,11 @@ export class ContentComponent implements OnInit {
       }
       this.increaseEnabled = true;
     });
+  }
+
+  formSubmit():void {
+    this.bugs.getBugsByForm(this.searchForm.value).subscribe(data => {
+      this.arrayOfBugs = data;
+    })
   }
 }

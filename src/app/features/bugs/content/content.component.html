@@ -5,7 +5,47 @@
       <br>
     </div>
   </div>
+  <div class="row formRow">
+    <form [formGroup]="searchForm" class="search-form form-inline" (submit)="formSubmit()">
+      <div class="form-group">
+        <!-- <label for="titleInput">Title</label> -->
+        <input type="text" class="form-control" id="titleInput" formControlName="title">
+      </div>
 
+      <div class="form-groug">
+        <!-- <label for="priorityInput">Priority</label> -->
+        <select class="form-control" id="priorityInput" formControlName="priority">
+          <option></option>
+          <option value="1">Minor</option>
+          <option value="2">Major</option>
+          <option value="3">Critical</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <!-- <label for="reporterInput">Reporter</label> -->
+        <select class="form-control" id="reporterInput" formControlName="reporter">
+          <option></option>
+          <option value="QA">QA</option>
+          <option value="PO">PO</option>
+          <option value="DEV">DEV</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <!-- <label for="statusInput">Status</label> -->
+        <select class="form-control" id="statusInput" formControlName="status">
+          <option></option>
+          <option value="Ready for testing">Ready for testing</option>
+          <option value="Done">Done</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary submitButton m-auto">Search</button>
+
+
+    </form>
+  </div>
   <table class="table text-center table-responsive-sm text-nowrap">
     <thead class="thead-dark">
       <tr>
@@ -15,10 +55,10 @@
             class="fa fa-fw fa-sort "></i></th>
         <th scope="col" (click)="sortBugs('reporter');">Reporter <i [ngClass]="arrowStyle('reporter')"
             class="fa fa-fw fa-sort "></i></th>
-        <th scope="col" (click)="sortBugs('createdAt');">Date Created <i [ngClass]="arrowStyle('createdAt')"
-            class="fa fa-fw fa-sort "></i></th>
         <th scope="col" (click)="sortBugs('status');">Status <i [ngClass]="arrowStyle('status')"
             class="fa fa-fw fa-sort"></i></th>
+        <th scope="col" (click)="sortBugs('createdAt');">Date Created <i [ngClass]="arrowStyle('createdAt')"
+            class="fa fa-fw fa-sort "></i></th>
         <th colspan="2" scope="col" class="emptyCell"></th>
 
       </tr>
@@ -28,8 +68,8 @@
         <td>{{item.title}}</td>
         <td>{{item.priority}}</td>
         <td>{{item.reporter}}</td>
-        <td>{{item.createdAt | date:'yyyy-MM-dd HH:mm'}}</td>
         <td>{{item.status}}</td>
+        <td>{{item.createdAt | date:'yyyy-MM-dd HH:mm'}}</td>
         <td colspan="2" id="tdwithButtons">
           <button type="button" class="btn btn-sm col-7" [routerLink]="['edit-bug', item.id]"> Edit </button>
           <button type="button" class="btn btn-danger btn-sm col-5" (click)="deleteBug(item.id)">Delete</button>
