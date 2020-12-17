@@ -57,4 +57,8 @@ export class BugsService {
     console.log(params)
     return this.http.get<Bugs[]>(this.endpoint + '?' + params);
   }
+
+  getBugsByQuery(query: string): Observable<Bugs[]> {
+    return this.http.get<Bugs[]>(this.endpoint + '?' + query);
+  }
 }
