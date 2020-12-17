@@ -31,8 +31,9 @@ export class ContentComponent implements OnInit {
       status: [null]
     })
 
-    this.bugs.getBugsByPage(this.pageNumber).subscribe((data) => {
-      this.arrayOfBugs = data;
+    this.bugs.getBugsByPage(this.pageNumber).subscribe((response) => {
+      this.arrayOfBugs = response.body;
+      response.headers.keys().map( (key) => console.log(`${key}: ${response.headers.get(key)}`));
     });
     this.checkNextPage();
   }
@@ -83,13 +84,13 @@ export class ContentComponent implements OnInit {
       this.pageNumber -= 1;
     }
     this.bugs.getBugsByPage(this.pageNumber).subscribe((data) => {
-      if ((data === undefined || data.length == 0) && direction == 'increase') {
+      if ((data.body === undefined || data.body.length == 0) && direction == 'increase') {
         this.pageNumber -= 1;
         this.returnPage = this.pageNumber;
         this.increaseEnabled = false;
         return;
       }
-      this.arrayOfBugs = data;
+      this.arrayOfBugs = data.body;
     });
     this.checkNextPage();
     this.returnPage = this.pageNumber;
@@ -98,7 +99,7 @@ export class ContentComponent implements OnInit {
   checkNextPage() {
     let nextPage = this.pageNumber + 1;
     this.bugs.getBugsByPage(nextPage).subscribe((data) => {
-      if (data === undefined || data.length == 0) {
+      if (data.body === undefined || data.body.length == 0) {
         this.increaseEnabled = false;
         return;
       }

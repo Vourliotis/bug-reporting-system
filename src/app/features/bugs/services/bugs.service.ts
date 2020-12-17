@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Bugs } from '../models/bugs.model';
@@ -43,8 +43,8 @@ export class BugsService {
     return this.http.get<Bugs>(this.endpoint + '/' + id);
   }
 
-  getBugsByPage(pageNumber: number): Observable<Bugs[]> {
-    return this.http.get<Bugs[]>(this.endpoint + '?page=' + pageNumber);
+  getBugsByPage(pageNumber: number): Observable<HttpResponse<Bugs[]>> {
+    return this.http.get<Bugs[]>(this.endpoint + '?page=' + pageNumber, {observe: 'response'});
   }
 
   getBugsByForm(bug: Bugs): Observable<Bugs[]> {
