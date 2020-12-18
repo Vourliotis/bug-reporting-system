@@ -130,5 +130,9 @@ export class ContentComponent implements OnInit {
       this.totalPages = Number(resp.headers.get('Totalpages'));
     });
     this.advancedSearch = true
+    this.currentSort = {
+      order: false,
+      currentCategory: 'none',
+    };
   }
 }
