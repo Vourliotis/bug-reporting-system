@@ -13,28 +13,43 @@ export class ContentComponent implements OnInit {
   arrayOfBugs: Bugs[];
   pageNumber = 0;
   totalPages = 0;
+  params: URLSearchParams;
+  advancedSearch: boolean = false;
   searchForm: FormGroup;
+  previousParams: URLSearchParams = null;
 
   currentSort = {
     order: false,
     currentCategory: 'none',
   };
 
-  constructor(private bugs: BugsService, private router: Router, private fb: FormBuilder) {}
+  constructor(
+    private bugs: BugsService,
+    private router: Router,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.searchForm = this.fb.group({
       title: [null],
       priority: [null],
       reporter: [null],
-      status: [null]
-    })
+      status: [null],
+    });
 
-    this.bugs.getBugsByQuery(this.bugs.createQueryString(null, null, null, this.pageNumber)).subscribe((response) => {
+    this.params = this.bugs.createQueryString(
+      null,
+      null,
+      null,
+      this.pageNumber
+    );
+    this.bugs.getBugsByQuery(this.params).subscribe((response) => {
       this.arrayOfBugs = response.body;
-      response.headers.keys().map( (key) => console.log(`${key}: ${response.headers.get(key)}`));
-      this.pageNumber = Number(response.headers.get('Page'))
-      this.totalPages = Number(response.headers.get('Totalpages'))
+      response.headers
+        .keys()
+        .map((key) => console.log(`${key}: ${response.headers.get(key)}`));
+      this.pageNumber = Number(response.headers.get('Page'));
+      this.totalPages = Number(response.headers.get('Totalpages'));
     });
   }
 
@@ -50,7 +65,12 @@ export class ContentComponent implements OnInit {
       this.currentSort.currentCategory = category;
     }
 
-    this.bugs.getBugsByQuery(this.bugs.createQueryString(null, category, this.currentSort.order)).subscribe((data) => {
+    this.params = this.bugs.createQueryString(
+      null,
+      category,
+      this.currentSort.order
+    );
+    this.bugs.getBugsByQuery(this.params).subscribe((data) => {
       this.arrayOfBugs = data.body;
     });
   }
@@ -84,18 +104,31 @@ export class ContentComponent implements OnInit {
       this.pageNumber -= 1;
     }
 
-    this.bugs.getBugsByQuery(this.bugs.createQueryString(null, null, null, this.pageNumber)).subscribe((data) => {
-      this.pageNumber = Number(data.headers.get('Page'))
-      this.totalPages = Number(data.headers.get('Totalpages'))
+    if(this.advancedSearch){
+      this.previousParams = this.params;
+      this.advancedSearch = false;
+    }
+
+    this.params = this.bugs.createQueryString(
+      null,
+      null,
+      null,
+      this.pageNumber
+    );
+    this.bugs.getBugsByQuery(this.params, this.previousParams).subscribe((data) => {
+      this.pageNumber = Number(data.headers.get('Page'));
+      this.totalPages = Number(data.headers.get('Totalpages'));
       this.arrayOfBugs = data.body;
     });
   }
 
-  formSubmit():void {
-    this.bugs.getBugsByQuery(this.bugs.createQueryString(this.searchForm.value)).subscribe(resp => {
+  formSubmit(): void {
+    this.params = this.bugs.createQueryString(this.searchForm.value);
+    this.bugs.getBugsByQuery(this.params).subscribe((resp) => {
       this.arrayOfBugs = resp.body;
-      this.pageNumber = Number(resp.headers.get('Page'))
-      this.totalPages = Number(resp.headers.get('Totalpages'))
-    })
+      this.pageNumber = Number(resp.headers.get('Page'));
+      this.totalPages = Number(resp.headers.get('Totalpages'));
+    });
+    this.advancedSearch = true
   }
 }

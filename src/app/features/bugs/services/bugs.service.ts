@@ -34,8 +34,8 @@ export class BugsService {
     return this.http.get<Bugs>(this.endpoint + '/' + id);
   }
 
-  getBugsByQuery(params: URLSearchParams): Observable<HttpResponse<Bugs[]>> {
-    return this.http.get<Bugs[]>(this.endpoint + '?' + params, {
+  getBugsByQuery(params: URLSearchParams, previousParams: URLSearchParams = null): Observable<HttpResponse<Bugs[]>> {
+    return this.http.get<Bugs[]>(this.endpoint + '?' + params + '&' + previousParams, {
       observe: 'response',
     });
   }
@@ -44,7 +44,7 @@ export class BugsService {
     bug: Bugs = null,
     value: string = null,
     order: boolean = null,
-    page: number = null
+    page: number = null,
   ): URLSearchParams {
     let params = new URLSearchParams();
     for (let key in bug) {
@@ -59,6 +59,7 @@ export class BugsService {
     if (page != null) {
       params.set('page', String(page));
     }
+
     return params;
   }
 }
