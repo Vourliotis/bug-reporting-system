@@ -1,6 +1,5 @@
-<div class="container col-12">
-  <div class="col-sm-6 col-md-6 col-lg-4 mx-auto">
-    <form [formGroup]="updateForm" class="text-light p-4 rounded" (submit)="formSubmit()">
+<div class="container col-12 col-sm-8 col-md-6 col-lg-3 mt-5" [@flyInOut]>
+  <form [formGroup]="updateForm" class="text-light p-4 rounded" (submit)="formSubmit()">
       <div class="form-group">
         <label for="titleInput">Title</label>
         <input type="text" class="form-control" id="titleInput" formControlName="title"
@@ -46,7 +45,7 @@
       </button>
 
       <!-- //COMMENTS -->
-      <div *ngFor="let item of comments.controls;let idx= index " [formGroup]="item">
+      <div *ngFor="let item of comments.controls;let idx= index " [formGroup]="item" [@fadeInOut]>
         <div class="form-group">
           <div class="row mx-auto">
             <label for="commentDescription" class="mr-auto small">Description</label>
@@ -74,4 +73,4 @@
       </div>
     </form>
   </div>
-</div>
+

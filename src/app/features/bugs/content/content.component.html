@@ -1,52 +1,45 @@
-<div class="container">
-  <div class="row buttonRow">
-    <div class="col-2">
-      <button type="button" class="btn btn-dark btn-md btn-create" [routerLink]="['create-bug']">Create new</button>
-      <br>
-    </div>
-  </div>
-  <div class="row formRow">
-    <form [formGroup]="searchForm" class="search-form form-inline" (submit)="formSubmit()">
-      <div class="form-group">
-        <!-- <label for="titleInput">Title</label> -->
-        <input type="text" class="form-control" id="titleInput" formControlName="title">
-      </div>
+<div [@flyInOut] [@fadeInOut] class="container ">
 
-      <div class="form-groug">
-        <!-- <label for="priorityInput">Priority</label> -->
-        <select class="form-control" id="priorityInput" formControlName="priority">
-          <option></option>
+  <!-- //advancedSearchForm -->
+
+  <div class="row col-12">
+    <div class="col-3 mb-2">
+      <button type="button" class=" btn btn-lg btn-create text-nowrap" [routerLink]="['create-bug']">Create new</button>
+    </div>
+    <form class="form-inline col-12 col-md-9 ml-auto search-form" *ngIf="state" [@fadeInOut] [formGroup]="advancedSearchForm"
+      (submit)="formSubmit()">
+      <div class="row">
+
+        <input type="text" class="form-control" id="titleInput" placeholder="Enter Keywords" formControlName="title">
+
+        <select class="form-control " id="priorityInput" formControlName="priority">
+          <option value="" selected disabled hidden>Priority</option>
           <option value="1">Minor</option>
           <option value="2">Major</option>
           <option value="3">Critical</option>
         </select>
-      </div>
 
-      <div class="form-group">
-        <!-- <label for="reporterInput">Reporter</label> -->
         <select class="form-control" id="reporterInput" formControlName="reporter">
-          <option></option>
+          <option value="" selected disabled hidden>Reporter</option>
           <option value="QA">QA</option>
           <option value="PO">PO</option>
           <option value="DEV">DEV</option>
         </select>
-      </div>
 
-      <div class="form-group">
-        <!-- <label for="statusInput">Status</label> -->
-        <select class="form-control" id="statusInput" formControlName="status">
-          <option></option>
+        <select class="form-control " id="statusInput" formControlName="status">
+          <option value="" selected disabled hidden>Status</option>
           <option value="Ready for testing">Ready for testing</option>
           <option value="Done">Done</option>
           <option value="Rejected">Rejected</option>
         </select>
+
+        <button type="submit" class="btn btn-danger">Search</button>
       </div>
-      <button type="submit" class="btn btn-primary submitButton m-auto">Search</button>
-
-
     </form>
+    <!-- </div> -->
   </div>
-  <table class="table text-center table-responsive-sm text-nowrap">
+  <!-- //end of advancedSearchForm -->
+  <table class="table text-center table-responsive-sm table-responsive-lg text-nowrap">
     <thead class="thead-dark">
       <tr>
         <th scope="col" (click)="sortBugs('title');">Title <i [ngClass]="arrowStyle('title')"
@@ -59,12 +52,14 @@
             class="fa fa-fw fa-sort"></i></th>
         <th scope="col" (click)="sortBugs('createdAt');">Date Created <i [ngClass]="arrowStyle('createdAt')"
             class="fa fa-fw fa-sort "></i></th>
-        <th colspan="2" scope="col" class="emptyCell"></th>
-
+        <th colspan="2" scope="col" id="searchThBtn" (click)="toggleAdvanced()"
+          [ngClass]="state ? 'clicked' : 'default'">
+          Advanced Search
+        </th>
       </tr>
     </thead>
     <tbody class="table-striped table-light ">
-      <tr *ngFor="let item of arrayOfBugs">
+      <tr [@fadeInOut] *ngFor="let item of arrayOfBugs">
         <td>{{item.title}}</td>
         <td>{{item.priority}}</td>
         <td>{{item.reporter}}</td>
@@ -80,12 +75,10 @@
   <div class="row text-center">
     <div class="col-4 mx-auto">
       <button type="button" class="btn btn-dark btn-md btn-create" (click)="changePage('decrease')"
-        [disabled]="pageNumber <= 0">
-        <</button> <span class="font-weight-bold text-light float-center "> {{pageNumber + 1}} / {{totalPages}} </span>
-          <button type="button" class="btn btn-dark btn-md btn-create " (click)="changePage('increase')"
-            [disabled]="pageNumber + 1 == totalPages">></button>
+        [disabled]="pageNumber <= 0"> &#60;</button>
+      <span class="font-weight-bold text-light float-center "> {{pageNumber + 1}} / {{totalPages}} </span>
+      <button type="button" class="btn btn-dark btn-md btn-create " (click)="changePage('increase')"
+        [disabled]="pageNumber + 1 == totalPages">></button>
     </div>
   </div>
-
-
 </div>

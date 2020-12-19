@@ -11,15 +11,40 @@ import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { BugsService } from '../services/bugs.service';
 import { FormValidationService } from '../services/form-validation.service';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-create-bug',
   templateUrl: './create-bug.component.html',
   styleUrls: ['./create-bug.component.scss'],
+  animations: [
+    // animation triggers go here
+    trigger('flyInOut', [
+      transition(':enter',[
+        style({transform: 'translateX(-100%)'}),
+        animate('0.5s ease-out')
+      ]),
+      transition(':leave',[
+        style({transform: 'translateX(100%)'}),
+        animate('0.5s ease-out')
+      ])
+    ]),
+    trigger('fadeInOut', [
+      transition(':enter',[
+        style({opacity: '0'}),
+        animate('0.7s ease-in-out')
+      ]),
+      transition(':leave',[
+        style({ 
+          left: '-100px'}),
+        animate('300ms ease-out')
+      ])
+    ])
+  ]
 })
 export class CreateBugComponent implements OnInit {
   //commented out also ^^ implements OnDestroy
-
+  state=true;
   createForm: FormGroup;
   // bugsSubscription: Subscription
   unSaved: boolean = true;

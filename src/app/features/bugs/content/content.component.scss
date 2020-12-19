@@ -5,9 +5,9 @@ table tr:last-child td:last-child {
   border-bottom-right-radius: 6px;
 }
 
-form{
-  margin-left: 15px
-}
+// form{
+//   margin-left: 15px
+// }
 
 .table {
   font-family: 'Open Sans', sans-serif;
@@ -15,7 +15,7 @@ form{
   box-shadow: 2px 4px 50px rgba(0, 0, 0, 0.5);
   background-color: #36304a;
   border-top: hidden;
-  border-radius: 20px;
+  border-radius: 10px;
   
 
   tr {
@@ -24,6 +24,8 @@ form{
       color: white;
       font-size: 1.1rem;
       border-bottom: none;
+      cursor: pointer;
+      user-select: none;
 
       &:first-child{
         border-top-left-radius: 10px;
@@ -32,10 +34,10 @@ form{
         border-top-right-radius: 10px;
       }
 
-      &:not(:nth-last-child(1)) {
-        cursor: pointer;
-        user-select: none;
-      }
+      // &:not(:nth-last-child(1)) {
+      //   cursor: pointer;
+      //   user-select: none;
+      // }
      
       
     }
@@ -72,7 +74,16 @@ form{
 
 .btn-create {
   background-color: #36304a;
-}
+  color: white;
+  transition: 0.25s;
+    
+    &:hover,
+    &:focus { 
+      background-color: antiquewhite;
+      border-color: var(--hover);
+      color:#36304a;
+    }
+  }
 
 #tdwithButtons .btn{
   border: none;
@@ -81,11 +92,25 @@ form{
   &:first-child{
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    background-color: #8C73B7;
+    background-color:#6E6CE0;
   }
   &:last-child{
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     background-color: #8B0000;
   }
+}
+.clicked{
+  background-color: red!important;
+}
+
+.default{
+  background-color: #6E6CE0!important;
+}
+
+
+#searchThBtn{
+  // background-color: #8175BF;
+  &:hover{
+  background-color: red !important;}
 }

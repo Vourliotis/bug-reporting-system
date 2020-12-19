@@ -5,11 +5,35 @@ import { Observable, of, Subscription } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { BugsService } from '../services/bugs.service';
 import { FormValidationService } from '../services/form-validation.service';
-
+import { animate, style, transition, trigger } from '@angular/animations';
 @Component({
   selector: 'app-edit-bug',
   templateUrl: './edit-bug.component.html',
   styleUrls: ['./edit-bug.component.scss'],
+  animations: [
+    // animation triggers go here
+    trigger('flyInOut', [
+      transition(':enter',[
+        style({transform: 'translateX(-100%)'}),
+        animate('0.5s ease-out')
+      ]),
+      transition(':leave',[
+        style({transform: 'translateX(100%)'}),
+        animate('0.5s ease-out')
+      ])
+    ]),
+    trigger('fadeInOut', [
+      transition(':enter',[
+        style({opacity: '0'}),
+        animate('0.7s ease-in-out')
+      ]),
+      transition(':leave',[
+        style({ 
+          left: '-100px'}),
+        animate('300ms ease-out')
+      ])
+    ])
+  ]
 })
 export class EditBugComponent implements OnInit {
   //commented out also ^^ implements OnDestroy

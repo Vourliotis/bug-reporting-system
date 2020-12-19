@@ -4,13 +4,51 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Bugs } from '../models/bugs.model';
 import { BugsService } from '../services/bugs.service';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-content',
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.scss'],
+  animations: [
+    // animation triggers go here
+    trigger('flyInOut', [
+      transition(':enter',[
+        style({transform: 'translateX(100%)'}),
+        animate('0.6s ease-in-out')
+      ])
+      // transition(':enter',[
+      //   style({opacity: '0'}),
+      //   animate('0.8s ease-in-out')
+      // ])
+      // ,
+      // transition(':leave',[
+      //   style({transform: 'translateX(100%)'}),
+      //   animate('0.5s ease-out')
+      // ])
+    ])
+    ,
+    trigger('fadeInOut', [
+      transition(':enter',[
+        style({opacity: '0'}),
+        animate('0.7s ease-in-out')
+      ])
+    ])
+  ]
 })
 export class ContentComponent implements OnInit {
+  state = false;
+
+   toggleAdvanced(){
+     this.state = this.state ? false :true;
+   }
+  
   arrayOfBugs: Bugs[];
   pageNumber = 0;
   totalPages = 0;
