@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { BugsService } from '../services/bugs.service';
 
 import { EditBugComponent } from './edit-bug.component';
 
@@ -8,7 +10,9 @@ describe('EditBugComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditBugComponent ]
+      declarations: [ EditBugComponent ],
+      imports: [ SharedModule ],
+      providers: [ BugsService ]
     })
     .compileComponents();
   });

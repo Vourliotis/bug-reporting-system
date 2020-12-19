@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 import { ContentComponent } from './content.component';
 
@@ -8,7 +9,8 @@ describe('ContentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ContentComponent ]
+      declarations: [ ContentComponent ],
+      imports: [ SharedModule ]
     })
     .compileComponents();
   });
