@@ -125,7 +125,7 @@ export class EditBugComponent implements OnInit {
   }
 
   canDeactivate(): Observable<boolean> | boolean {
-    if (this.unsaved) {
+    if (this.updateForm.touched && (this.updateForm.invalid || this.unsaved)) {
       const result = window.confirm(
         'There are unsaved changes! Are you sure you want to leave?'
       );
