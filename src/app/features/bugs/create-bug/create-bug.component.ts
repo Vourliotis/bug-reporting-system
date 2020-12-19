@@ -106,7 +106,7 @@ export class CreateBugComponent implements OnInit {
   }
 
   canDeactivate(): Observable<boolean> | boolean {
-    if (this.unsaved) {
+    if (this.createForm.touched && (this.createForm.invalid || this.unsaved)) {
       const result = window.confirm('There are unsaved changes! Are you sure you want to leave?');
       return of(result);
     }
