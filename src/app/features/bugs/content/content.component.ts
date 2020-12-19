@@ -19,10 +19,10 @@ import {
   animations: [
     // animation triggers go here
     trigger('flyInOut', [
-      transition(':enter',[
-        style({transform: 'translateX(100%)'}),
-        animate('0.6s ease-in-out')
-      ])
+      transition(':enter', [
+        style({ transform: 'translateX(100%)' }),
+        animate('0.6s ease-in-out'),
+      ]),
       // transition(':enter',[
       //   style({opacity: '0'}),
       //   animate('0.8s ease-in-out')
@@ -32,23 +32,22 @@ import {
       //   style({transform: 'translateX(100%)'}),
       //   animate('0.5s ease-out')
       // ])
-    ])
-    ,
+    ]),
     trigger('fadeInOut', [
-      transition(':enter',[
-        style({opacity: '0'}),
-        animate('0.7s ease-in-out')
-      ])
-    ])
-  ]
+      transition(':enter', [
+        style({ opacity: '0' }),
+        animate('0.7s ease-in-out'),
+      ]),
+    ]),
+  ],
 })
 export class ContentComponent implements OnInit {
   state = false;
 
-   toggleAdvanced(){
-     this.state = this.state ? false :true;
-   }
-  
+  toggleAdvanced() {
+    this.state = this.state ? false : true;
+  }
+
   arrayOfBugs: Bugs[];
   pageNumber = 0;
   totalPages = 0;
@@ -104,21 +103,20 @@ export class ContentComponent implements OnInit {
       this.currentSort.currentCategory = category;
     }
 
-    if(this.advancedSearch){
+    if (this.advancedSearch) {
       this.previousParams = this.params;
       this.params = this.bugs.createQueryString(
         null,
         category,
         this.currentSort.order
       );
-      this.params = this.bugs.combineParams(this.previousParams, this.params)
+      this.params = this.bugs.combineParams(this.previousParams, this.params);
       this.advancedSearch = false;
-    }else{
-      this.params = this.bugs.combineParams(this.params, this.bugs.createQueryString(
-        null,
-        category,
-        this.currentSort.order
-      ))
+    } else {
+      this.params = this.bugs.combineParams(
+        this.params,
+        this.bugs.createQueryString(null, category, this.currentSort.order)
+      );
     }
 
     this.bugs.getBugsByQuery(this.params).subscribe((data) => {
@@ -145,18 +143,23 @@ export class ContentComponent implements OnInit {
   }
 
   deleteBug(id: string) {
-    this.bugs.deleteBug(id).subscribe((resp) => {
-      // this.arrayOfBugs = this.arrayOfBugs.filter((item) => item.id !== id);
-        if(this.pageNumber > Number(resp.headers.get('Totalpages'))){
+    const result = window.confirm(
+      'Are you sure you want to delete this bug?'
+    );
+    if (result) {
+      this.bugs.deleteBug(id).subscribe((resp) => {
+        // this.arrayOfBugs = this.arrayOfBugs.filter((item) => item.id !== id);
+        if (this.pageNumber > Number(resp.headers.get('Totalpages'))) {
           this.pageNumber -= 1;
-          this.params.set('page', String(this.pageNumber))
+          this.params.set('page', String(this.pageNumber));
         }
-      this.bugs.getBugsByQuery(this.params).subscribe((data) => {
-        this.pageNumber = Number(data.headers.get('Page'));
-        this.totalPages = Number(data.headers.get('Totalpages'));
-        this.arrayOfBugs = data.body;
+        this.bugs.getBugsByQuery(this.params).subscribe((data) => {
+          this.pageNumber = Number(data.headers.get('Page'));
+          this.totalPages = Number(data.headers.get('Totalpages'));
+          this.arrayOfBugs = data.body;
+        });
       });
-    });
+    }
   }
 
   changePage(direction: string) {
@@ -166,7 +169,7 @@ export class ContentComponent implements OnInit {
       this.pageNumber -= 1;
     }
 
-    if(this.advancedSearch){
+    if (this.advancedSearch) {
       this.previousParams = this.params;
       this.params = this.bugs.createQueryString(
         null,
@@ -174,15 +177,13 @@ export class ContentComponent implements OnInit {
         null,
         this.pageNumber
       );
-      this.params = this.bugs.combineParams(this.previousParams, this.params)
+      this.params = this.bugs.combineParams(this.previousParams, this.params);
       this.advancedSearch = false;
-    }else{
-      this.params = this.bugs.combineParams(this.params, this.bugs.createQueryString(
-        null,
-        null,
-        null,
-        this.pageNumber
-      ))
+    } else {
+      this.params = this.bugs.combineParams(
+        this.params,
+        this.bugs.createQueryString(null, null, null, this.pageNumber)
+      );
     }
 
     this.bugs.getBugsByQuery(this.params).subscribe((data) => {
@@ -199,7 +200,7 @@ export class ContentComponent implements OnInit {
       this.pageNumber = Number(resp.headers.get('Page'));
       this.totalPages = Number(resp.headers.get('Totalpages'));
     });
-    this.advancedSearch = true
+    this.advancedSearch = true;
     this.currentSort = {
       order: false,
       currentCategory: 'none',
@@ -207,9 +208,9 @@ export class ContentComponent implements OnInit {
   }
 
   clearAdvancedSearch(): void {
-    this.advancedSearchForm.get('title').setValue('')
-    this.advancedSearchForm.get('priority').setValue('')
-    this.advancedSearchForm.get('reporter').setValue('')
-    this.advancedSearchForm.get('status').setValue('')
+    this.advancedSearchForm.get('title').setValue('');
+    this.advancedSearchForm.get('priority').setValue('');
+    this.advancedSearchForm.get('reporter').setValue('');
+    this.advancedSearchForm.get('status').setValue('');
   }
 }
