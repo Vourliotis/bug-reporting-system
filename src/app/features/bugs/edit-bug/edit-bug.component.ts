@@ -42,7 +42,7 @@ export class EditBugComponent implements OnInit {
   // routeSubscription: Subscription
   routeId: string;
   // bugsSubscription: Subscription
-  unSaved: boolean = true;
+  unsaved: boolean = true;
 
   get comments() {
     return this.updateForm.get('comments') as FormArray;
@@ -119,13 +119,13 @@ export class EditBugComponent implements OnInit {
         .updateBug(this.routeId, this.updateForm.value)
         .pipe(delay(100))
         .subscribe((data) => {
-          this.unSaved = false;
+          this.unsaved = false;
           this.router.navigate(['']);
         });
   }
 
   canDeactivate(): Observable<boolean> | boolean {
-    if (this.unSaved) {
+    if (this.unsaved) {
       const result = window.confirm(
         'There are unsaved changes! Are you sure you want to leave?'
       );

@@ -47,7 +47,7 @@ export class CreateBugComponent implements OnInit {
   state=true;
   createForm: FormGroup;
   // bugsSubscription: Subscription
-  unSaved: boolean = true;
+  unsaved: boolean = true;
 
   get comments() {
     return this.createForm.get('comments') as FormArray;
@@ -100,13 +100,13 @@ export class CreateBugComponent implements OnInit {
         .postBug(this.createForm.value)
         .pipe(delay(100))
         .subscribe((response) => {
-          this.unSaved = false;
+          this.unsaved = false;
           this.router.navigate(['']);
         });
   }
 
   canDeactivate(): Observable<boolean> | boolean {
-    if (this.unSaved) {
+    if (this.unsaved) {
       const result = window.confirm('There are unsaved changes! Are you sure you want to leave?');
       return of(result);
     }
