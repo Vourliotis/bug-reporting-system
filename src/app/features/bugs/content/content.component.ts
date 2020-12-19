@@ -70,10 +70,10 @@ export class ContentComponent implements OnInit {
 
   ngOnInit(): void {
     this.advancedSearchForm = this.fb.group({
-      title: [null],
-      priority: [null],
-      reporter: [null],
-      status: [null],
+      title: [''],
+      priority: [''],
+      reporter: [''],
+      status: [''],
     });
 
     this.params = this.bugs.createQueryString(
@@ -195,5 +195,12 @@ export class ContentComponent implements OnInit {
       order: false,
       currentCategory: 'none',
     };
+  }
+
+  clearAdvancedSearch(): void {
+    this.advancedSearchForm.get('title').setValue('')
+    this.advancedSearchForm.get('priority').setValue('')
+    this.advancedSearchForm.get('reporter').setValue('')
+    this.advancedSearchForm.get('status').setValue('')
   }
 }
