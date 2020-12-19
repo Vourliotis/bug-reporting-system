@@ -54,7 +54,7 @@ export class ContentComponent implements OnInit {
   totalPages = 0;
   params: URLSearchParams;
   advancedSearch: boolean = false;
-  searchForm: FormGroup;
+  advancedSearchForm: FormGroup;
   previousParams: URLSearchParams = null;
 
   currentSort = {
@@ -69,7 +69,7 @@ export class ContentComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.searchForm = this.fb.group({
+    this.advancedSearchForm = this.fb.group({
       title: [null],
       priority: [null],
       reporter: [null],
@@ -184,7 +184,7 @@ export class ContentComponent implements OnInit {
   }
 
   formSubmit(): void {
-    this.params = this.bugs.createQueryString(this.searchForm.value);
+    this.params = this.bugs.createQueryString(this.advancedSearchForm.value);
     this.bugs.getBugsByQuery(this.params).subscribe((resp) => {
       this.arrayOfBugs = resp.body;
       this.pageNumber = Number(resp.headers.get('Page'));
