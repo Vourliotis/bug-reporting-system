@@ -18,7 +18,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   ],
   exports: [
     ReactiveFormsModule,
-    AppRoutingModule,
     HttpClientModule
   ]
 })
