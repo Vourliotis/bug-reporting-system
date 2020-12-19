@@ -66,11 +66,23 @@ export class ContentComponent implements OnInit {
       this.currentSort.currentCategory = category;
     }
 
-    this.params = this.bugs.createQueryString(
-      null,
-      category,
-      this.currentSort.order
-    );
+    if(this.advancedSearch){
+      this.previousParams = this.params;
+      this.params = this.bugs.createQueryString(
+        null,
+        category,
+        this.currentSort.order
+      );
+      this.params = this.bugs.combineParams(this.previousParams, this.params)
+      this.advancedSearch = false;
+    }else{
+      this.params = this.bugs.combineParams(this.params, this.bugs.createQueryString(
+        null,
+        category,
+        this.currentSort.order
+      ))
+    }
+
     this.bugs.getBugsByQuery(this.params).subscribe((data) => {
       this.arrayOfBugs = data.body;
       this.pageNumber = Number(data.headers.get('Page'));
