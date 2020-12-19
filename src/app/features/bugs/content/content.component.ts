@@ -1,3 +1,4 @@
+import { isDefined } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -72,6 +73,8 @@ export class ContentComponent implements OnInit {
     );
     this.bugs.getBugsByQuery(this.params).subscribe((data) => {
       this.arrayOfBugs = data.body;
+      this.pageNumber = Number(data.headers.get('Page'));
+      this.totalPages = Number(data.headers.get('Totalpages'));
     });
   }
 
@@ -106,16 +109,24 @@ export class ContentComponent implements OnInit {
 
     if(this.advancedSearch){
       this.previousParams = this.params;
+      this.params = this.bugs.createQueryString(
+        null,
+        null,
+        null,
+        this.pageNumber
+      );
+      this.params = this.bugs.combineParams(this.previousParams, this.params)
       this.advancedSearch = false;
+    }else{
+      this.params = this.bugs.combineParams(this.params, this.bugs.createQueryString(
+        null,
+        null,
+        null,
+        this.pageNumber
+      ))
     }
 
-    this.params = this.bugs.createQueryString(
-      null,
-      null,
-      null,
-      this.pageNumber
-    );
-    this.bugs.getBugsByQuery(this.params, this.previousParams).subscribe((data) => {
+    this.bugs.getBugsByQuery(this.params).subscribe((data) => {
       this.pageNumber = Number(data.headers.get('Page'));
       this.totalPages = Number(data.headers.get('Totalpages'));
       this.arrayOfBugs = data.body;
