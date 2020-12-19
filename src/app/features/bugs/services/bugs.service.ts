@@ -15,7 +15,7 @@ export class BugsService {
 
   deleteBug(id: string) {
     // console.log(this.endpoint+'/'+id)
-    return this.http.delete(`${this.endpoint}/${id}`);
+    return this.http.delete(`${this.endpoint}/${id}`, {observe: 'response'});
   }
 
   postBug(bug: Bugs) {

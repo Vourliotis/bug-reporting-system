@@ -145,8 +145,17 @@ export class ContentComponent implements OnInit {
   }
 
   deleteBug(id: string) {
-    this.bugs.deleteBug(id).subscribe((data) => {
-      this.arrayOfBugs = this.arrayOfBugs.filter((item) => item.id !== id);
+    this.bugs.deleteBug(id).subscribe((resp) => {
+      // this.arrayOfBugs = this.arrayOfBugs.filter((item) => item.id !== id);
+        if(this.pageNumber > Number(resp.headers.get('Totalpages'))){
+          this.pageNumber -= 1;
+          this.params.set('page', String(this.pageNumber))
+        }
+      this.bugs.getBugsByQuery(this.params).subscribe((data) => {
+        this.pageNumber = Number(data.headers.get('Page'));
+        this.totalPages = Number(data.headers.get('Totalpages'));
+        this.arrayOfBugs = data.body;
+      });
     });
   }
 
