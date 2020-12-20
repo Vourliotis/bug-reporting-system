@@ -47,7 +47,7 @@
       </button>
 
       <!-- //COMMENTS -->
-      <div *ngFor="let item of comments.controls; let idx= index" [formGroup]="item">
+      <div *ngFor="let item of comments.controls; let idx= index" [@fadeInOut] [formGroup]="item">
         <div class="form-group">
           <div class="row mx-auto">
             <label for="commentDescription" class="mr-auto small">Description</label>

@@ -23,22 +23,20 @@ import {
         style({ transform: 'translateX(100%)' }),
         animate('0.6s ease-in-out')
       ])
-      // transition(':enter',[
-      //   style({opacity: '0'}),
-      //   animate('0.8s ease-in-out')
-      // ])
-      // ,
       // transition(':leave',[
       //   style({transform: 'translateX(100%)'}),
       //   animate('0.5s ease-out')
       // ])
     ]),
-    trigger('fadeInOut', [
+    trigger('fadeIn', [
       transition(':enter', [
         style({ opacity: '0' }),
         animate('0.7s ease-in-out')
       ])
-    ])
+    ]),
+      trigger('fadeOut', [
+      transition(':leave', animate(300, style({opacity: 0})))
+      ])
   ]
 })
 export class ContentComponent implements OnInit {

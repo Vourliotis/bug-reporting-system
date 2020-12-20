@@ -23,22 +23,20 @@ import { animate, style, transition, trigger } from '@angular/animations';
       transition(':enter', [
         style({ transform: 'translateX(-100%)' }),
         animate('0.5s ease-out')
-      ]),
-      transition(':leave', [
-        style({ transform: 'translateX(100%)' }),
-        animate('0.5s ease-out')
       ])
+      // ,
+      // transition(':leave', [
+      //   style({ transform: 'translateX(100%)' }),
+      //   animate('0.5s ease-out')
+      // ])
     ]),
     trigger('fadeInOut', [
       transition(':enter', [
         style({ opacity: '0' }),
-        animate('0.7s ease-in-out')
+        animate('0.6s ease-in-out')
       ]),
       transition(':leave', [
-        style({
-          left: '-100px'
-        }),
-        animate('300ms ease-out')
+        animate(300, style({opacity: 0}))
       ])
     ])
   ]

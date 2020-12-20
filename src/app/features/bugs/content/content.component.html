@@ -5,7 +5,7 @@
     <div class="col-3 mb-2">
       <button type="button" class=" btn btn-lg btn-create text-nowrap" [routerLink]="['create-bug']">Create new</button>
     </div>
-    <form class="form-inline col-12 col-md-9 ml-auto search-form" *ngIf="state" [@fadeInOut] [formGroup]="advancedSearchForm"
+    <form class="form-inline col-12 col-md-9 ml-auto search-form" *ngIf="state" [@fadeIn]  [@fadeOut] [formGroup]="advancedSearchForm"
       (submit)="formSubmit()">
       <div class="row">
         
@@ -58,7 +58,7 @@
       </tr>
     </thead>
     <tbody class="table-striped table-light ">
-      <tr [@fadeInOut] *ngFor="let item of arrayOfBugs">
+      <tr [@fadeIn] *ngFor="let item of arrayOfBugs">
         <td>{{item.title}}</td>
         <td>{{item.priority}}</td>
         <td>{{item.reporter}}</td>

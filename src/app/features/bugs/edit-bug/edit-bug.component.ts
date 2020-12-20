@@ -17,10 +17,10 @@ import { animate, style, transition, trigger } from '@angular/animations';
         style({ transform: 'translateX(-100%)' }),
         animate('0.5s ease-out')
       ]),
-      transition(':leave', [
-        style({ transform: 'translateX(100%)' }),
-        animate('0.5s ease-out')
-      ])
+      // transition(':leave', [
+      //   style({ transform: 'translateX(100%)' }),
+      //   animate('0.5s ease-out')
+      // ])
     ]),
     trigger('fadeInOut', [
       transition(':enter', [
@@ -28,10 +28,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
         animate('0.7s ease-in-out')
       ]),
       transition(':leave', [
-        style({
-          left: '-100px'
-        }),
-        animate('300ms ease-out')
+        animate(300, style({opacity: 0}))
       ])
     ])
   ]
