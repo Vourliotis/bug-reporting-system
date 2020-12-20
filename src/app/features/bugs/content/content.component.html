@@ -2,7 +2,7 @@
 
   <!-- //advancedSearchForm -->
 
-  <div class="row col-12">
+  <div class="row col-12 mt-2 mb-3">
     <div class="col-3 mb-2">
       <button type="button" class=" btn btn-lg btn-create text-nowrap" [routerLink]="['create-bug']">Create new</button>
     </div>
@@ -10,7 +10,8 @@
       (submit)="formSubmit()">
       <div class="row">
 
-        <input type="text" class="form-control" id="titleInput" placeholder="Enter Keywords" formControlName="title">
+        <input type="text" class="form-control effect-10" id="titleInput" placeholder="Enter Keywords" formControlName="title">
+        <span class="focus-bg"></span>
 
         <select class="form-control " id="priorityInput" formControlName="priority">
           <option value="" selected disabled hidden>Priority</option>
@@ -34,7 +35,7 @@
         </select>
 
         <button type="submit" class="btn btn-danger">Search</button>
-        <button type="button" class="btn btn-sm btn-primary" (click)="clearAdvancedSearch()">Clear</button>
+        <button type="button" class="btn btn-sm " (click)="clearAdvancedSearch()">Clear</button>
       </div>
     </form>
     <!-- </div> -->
@@ -67,7 +68,7 @@
         <td>{{item.status}}</td>
         <td>{{item.createdAt | date:'yyyy-MM-dd HH:mm'}}</td>
         <td colspan="2" id="tdwithButtons">
-          <button type="button" class="btn btn-sm col-7" [routerLink]="['edit-bug', item.id]"> Edit </button>
+          <button type="button" class="btn btn-sm btn-info col-7" [routerLink]="['edit-bug', item.id]"> Edit </button>
           <button type="button" class="btn btn-danger btn-sm col-5" (click)="deleteBug(item.id)">Delete</button>
         </td>
       </tr>
@@ -75,10 +76,10 @@
   </table>
   <div class="row text-center">
     <div class="col-6 mx-auto">
-      <button type="button" class="btn btn-dark btn-md" (click)="changePage('decrease')"
+      <button type="button" class="btn btn-md text-light btnUnderTable" (click)="changePage('decrease')"
         [disabled]="pageNumber <= 0"> &#60;</button>
       <span class="font-weight-bold text-light"> {{pageNumber + 1}} / {{totalPages}} </span>
-      <button type="button" class="btn btn-dark btn-md" (click)="changePage('increase')"
+      <button type="button" class="btn btn-md text-light btnUnderTable" (click)="changePage('increase')"
         [disabled]="pageNumber + 1 == totalPages">&#62;</button>
     </div>
   </div>
