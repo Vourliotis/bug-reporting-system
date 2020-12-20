@@ -75,10 +75,10 @@
   </table>
   <div class="row text-center">
     <div class="col-6 mx-auto">
-      <button type="button" class="btn btn-dark btn-md btn-create" (click)="changePage('decrease')"
+      <button type="button" class="btn btn-dark btn-md" (click)="changePage('decrease')"
         [disabled]="pageNumber <= 0"> &#60;</button>
       <span class="font-weight-bold text-light"> {{pageNumber + 1}} / {{totalPages}} </span>
-      <button type="button" class="btn btn-dark btn-md btn-create " (click)="changePage('increase')"
+      <button type="button" class="btn btn-dark btn-md" (click)="changePage('increase')"
         [disabled]="pageNumber + 1 == totalPages">&#62;</button>
     </div>
   </div>
