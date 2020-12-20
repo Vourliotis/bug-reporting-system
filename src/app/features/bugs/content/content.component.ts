@@ -47,6 +47,7 @@ export class ContentComponent implements OnInit {
   arrayOfBugs: Bugs[];
   pageNumber = 0;
   totalPages = 0;
+  totalRecords = 0;
   params: URLSearchParams;
   advancedSearch = false;
   advancedSearchForm: FormGroup;
@@ -84,6 +85,7 @@ export class ContentComponent implements OnInit {
         .map((key) => console.log(`${key}: ${response.headers.get(key)}`));
       this.pageNumber = Number(response.headers.get('Page'));
       this.totalPages = Number(response.headers.get('Totalpages'));
+      this.totalRecords = Number(response.headers.get('Totalrecords'));
     });
   }
 
@@ -92,8 +94,8 @@ export class ContentComponent implements OnInit {
   }
 
   sortBugs(category: string) {
-    if (this.currentSort.currentCategory == category) {
-      if (this.currentSort.order == false) {
+    if (this.currentSort.currentCategory === category) {
+      if (this.currentSort.order === false) {
         this.currentSort.order = true;
       } else {
         this.currentSort.order = false;
@@ -123,18 +125,19 @@ export class ContentComponent implements OnInit {
       this.arrayOfBugs = data.body;
       this.pageNumber = Number(data.headers.get('Page'));
       this.totalPages = Number(data.headers.get('Totalpages'));
+      this.totalRecords = Number(data.headers.get('Totalrecords'));
     });
   }
 
   arrowStyle(category: string) {
     if (
-      this.currentSort.currentCategory == category &&
-      this.currentSort.order == false
+      this.currentSort.currentCategory === category &&
+      this.currentSort.order === false
     ) {
       return 'fa-sort-down';
     } else if (
-      this.currentSort.currentCategory == category &&
-      this.currentSort.order == true
+      this.currentSort.currentCategory === category &&
+      this.currentSort.order === true
     ) {
       return 'fa-sort-up';
     } else {
@@ -147,13 +150,15 @@ export class ContentComponent implements OnInit {
     if (result) {
       this.bugs.deleteBug(id).subscribe((resp) => {
         // this.arrayOfBugs = this.arrayOfBugs.filter((item) => item.id !== id);
-        if (this.pageNumber > Number(resp.headers.get('Totalpages'))) {
+        console.log(this.pageNumber);
+        if (this.pageNumber>0 && this.totalRecords % 10 === 1 && this.pageNumber+1 > Math.floor(this.totalRecords/10)) { //(a/b>>0)
           this.pageNumber -= 1;
           this.params.set('page', String(this.pageNumber));
         }
         this.bugs.getBugsByQuery(this.params).subscribe((data) => {
           this.pageNumber = Number(data.headers.get('Page'));
           this.totalPages = Number(data.headers.get('Totalpages'));
+          this.totalRecords = Number(data.headers.get('Totalrecords'));
           this.arrayOfBugs = data.body;
         });
       });
@@ -161,9 +166,9 @@ export class ContentComponent implements OnInit {
   }
 
   changePage(direction: string) {
-    if (direction == 'increase') {
+    if (direction === 'increase') {
       this.pageNumber += 1;
-    } else if (direction == 'decrease') {
+    } else if (direction === 'decrease') {
       this.pageNumber -= 1;
     }
 
@@ -187,6 +192,7 @@ export class ContentComponent implements OnInit {
     this.bugs.getBugsByQuery(this.params).subscribe((data) => {
       this.pageNumber = Number(data.headers.get('Page'));
       this.totalPages = Number(data.headers.get('Totalpages'));
+      this.totalRecords = Number(data.headers.get('Totalrecords'));
       this.arrayOfBugs = data.body;
     });
   }
@@ -197,6 +203,7 @@ export class ContentComponent implements OnInit {
       this.arrayOfBugs = resp.body;
       this.pageNumber = Number(resp.headers.get('Page'));
       this.totalPages = Number(resp.headers.get('Totalpages'));
+      this.totalRecords = Number(resp.headers.get('Totalrecords'));
     });
     this.advancedSearch = true;
     this.currentSort = {
