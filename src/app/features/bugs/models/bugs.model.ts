@@ -1,5 +1,5 @@
 export class Bugs {
-    id:string;
+    id: string;
     title: string;
     description: string;
     priority: number;
@@ -11,5 +11,5 @@ export class Bugs {
         id: string;
         reporter: string;
         description: string;
-    }]
+    }];
 }

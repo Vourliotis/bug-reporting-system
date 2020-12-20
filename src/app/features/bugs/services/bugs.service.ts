@@ -46,8 +46,8 @@ export class BugsService {
     order: boolean = null,
     page: number = null,
   ): URLSearchParams {
-    let params = new URLSearchParams();
-    for (let key in bug) {
+    const params = new URLSearchParams();
+    for (const key in bug) {
       if (bug[key] != null) {
         params.set(key, bug[key]);
       }
@@ -65,8 +65,8 @@ export class BugsService {
 
   combineParams(params1: URLSearchParams, params2: URLSearchParams): URLSearchParams{
     params2.forEach(function(value, key){
-      params1.set(key, value)
-    })
+      params1.set(key, value);
+    });
     return params1;
   }
 }

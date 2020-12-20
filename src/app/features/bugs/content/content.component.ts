@@ -52,7 +52,7 @@ export class ContentComponent implements OnInit {
   pageNumber = 0;
   totalPages = 0;
   params: URLSearchParams;
-  advancedSearch: boolean = false;
+  advancedSearch = false;
   advancedSearchForm: FormGroup;
   previousParams: URLSearchParams = null;
 

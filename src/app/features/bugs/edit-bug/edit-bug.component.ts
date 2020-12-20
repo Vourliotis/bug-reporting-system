@@ -28,7 +28,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
         animate('0.7s ease-in-out')
       ]),
       transition(':leave',[
-        style({ 
+        style({
           left: '-100px'}),
         animate('300ms ease-out')
       ])
@@ -37,12 +37,12 @@ import { animate, style, transition, trigger } from '@angular/animations';
 })
 export class EditBugComponent implements OnInit {
   //commented out also ^^ implements OnDestroy
-  commentsArray: Array<object>;
+  commentsArray: Array<unknown>;
   updateForm: FormGroup;
   // routeSubscription: Subscription
   routeId: string;
   // bugsSubscription: Subscription
-  unsaved: boolean = true;
+  unsaved = true;
 
   get comments() {
     return this.updateForm.get('comments') as FormArray;
@@ -97,11 +97,11 @@ export class EditBugComponent implements OnInit {
     });
   }
 
-  ValidateField(formInput: string) {
+  validateField(formInput: string) {
     //adds and Removes validation of QA input
     this.formValidationService.addRemoveValidationsOfQA(this.updateForm);
     //returns CSS Bootstrap class "is-valid" or "is-invalid"
-    return this.formValidationService.CSSinputValidation(
+    return this.formValidationService.cssInputValidation(
       this.updateForm,
       formInput
     );
@@ -115,13 +115,13 @@ export class EditBugComponent implements OnInit {
     }
     // Updates form with my edited form values and navigates back to main component after 100 ms delay
     else
-      this.bugsService
+      {this.bugsService
         .updateBug(this.routeId, this.updateForm.value)
         .pipe(delay(100))
         .subscribe((data) => {
           this.unsaved = false;
           this.router.navigate(['']);
-        });
+        });}
   }
 
   canDeactivate(): Observable<boolean> | boolean {

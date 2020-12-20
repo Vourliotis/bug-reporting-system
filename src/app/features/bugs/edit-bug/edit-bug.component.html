@@ -3,18 +3,18 @@
       <div class="form-group">
         <label for="titleInput">Title</label>
         <input type="text" class="form-control" id="titleInput" formControlName="title"
-          [ngClass]="ValidateField('title')">
+          [ngClass]="validateField('title')">
       </div>
       <div class="form-group">
         <label for="descriptionInput">Description</label>
         <textarea class="form-control " id="descriptionInput" rows="3" formControlName="description"
-          [ngClass]="ValidateField('description')"></textarea>
+          [ngClass]="validateField('description')"></textarea>
 
       </div>
       <div class="form-group">
         <label for="priorityInput">Priority</label>
         <select class="form-control" id="priorityInput" formControlName="priority"
-          [ngClass]="ValidateField('priority')">
+          [ngClass]="validateField('priority')">
           <option value="1">Minor</option>
           <option value="2">Major</option>
           <option value="3">Critical</option>
@@ -24,7 +24,7 @@
       <div class="form-group">
         <label for="reporterInput">Reporter</label>
         <select class="form-control" id="reporterInput" formControlName="reporter"
-          [ngClass]="ValidateField('reporter')">
+          [ngClass]="validateField('reporter')">
           <option value="QA">QA</option>
           <option value="PO">PO</option>
           <option value="DEV">DEV</option>
@@ -33,7 +33,7 @@
       </div>
       <div class="form-group">
         <label for="statusInput">Status</label>
-        <select class="form-control" id="statusInput" formControlName="status" [ngClass]="ValidateField('status')">
+        <select class="form-control" id="statusInput" formControlName="status" [ngClass]="validateField('status')">
           <option value="Ready for testing">Ready for testing</option>
           <option value="Done">Done</option>
           <option value="Rejected">Rejected</option>

@@ -35,7 +35,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
         animate('0.7s ease-in-out')
       ]),
       transition(':leave',[
-        style({ 
+        style({
           left: '-100px'}),
         animate('300ms ease-out')
       ])
@@ -47,7 +47,7 @@ export class CreateBugComponent implements OnInit {
   state=true;
   createForm: FormGroup;
   // bugsSubscription: Subscription
-  unsaved: boolean = true;
+  unsaved = true;
 
   get comments() {
     return this.createForm.get('comments') as FormArray;
@@ -79,11 +79,11 @@ export class CreateBugComponent implements OnInit {
     this.comments.removeAt(index);
   }
 
-  ValidateField(formInput: string) {
+  validateField(formInput: string) {
     //adds and Removes validation of QA input
     this.formValidationService.addRemoveValidationsOfQA(this.createForm);
     //returns CSS Bootstrap class "is-valid" or "is-invalid"
-    return this.formValidationService.CSSinputValidation(
+    return this.formValidationService.cssInputValidation(
       this.createForm,
       formInput
     );
@@ -96,13 +96,13 @@ export class CreateBugComponent implements OnInit {
     }
     // Posts form data to server after 100 ms delay
     else
-      this.bugsService
+      {this.bugsService
         .postBug(this.createForm.value)
         .pipe(delay(100))
         .subscribe((response) => {
           this.unsaved = false;
           this.router.navigate(['']);
-        });
+        });}
   }
 
   canDeactivate(): Observable<boolean> | boolean {

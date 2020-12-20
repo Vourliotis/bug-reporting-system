@@ -17,5 +17,5 @@ export class UnsavedChangesGuard implements CanDeactivate<unknown> {
     nextState?: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return component.canDeactivate ? component.canDeactivate() : false;
   }
-  
+
 }
