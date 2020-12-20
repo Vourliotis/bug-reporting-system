@@ -1,7 +1,6 @@
 <div [@flyInOut] [@fadeInOut] class="container ">
 
   <!-- //advancedSearchForm -->
-
   <div class="row col-12 mt-2 mb-3">
     <div class="col-3 mb-2">
       <button type="button" class=" btn btn-lg btn-create text-nowrap" [routerLink]="['create-bug']">Create new</button>
@@ -9,10 +8,8 @@
     <form class="form-inline col-12 col-md-9 ml-auto search-form" *ngIf="state" [@fadeInOut] [formGroup]="advancedSearchForm"
       (submit)="formSubmit()">
       <div class="row">
-
+        
         <input type="text" class="form-control effect-10" id="titleInput" placeholder="Enter Keywords" formControlName="title">
-        <span class="focus-bg"></span>
-
         <select class="form-control " id="priorityInput" formControlName="priority">
           <option value="" selected disabled hidden>Priority</option>
           <option value="1">Minor</option>
@@ -38,11 +35,11 @@
         <button type="button" class="btn btn-sm " (click)="clearAdvancedSearch()">Clear</button>
       </div>
     </form>
-    <!-- </div> -->
   </div>
   <!-- //end of advancedSearchForm -->
+
   <table class="table text-center table-responsive-sm table-responsive-lg text-nowrap">
-    <thead class="thead-dark">
+    <thead >
       <tr>
         <th scope="col" (click)="sortBugs('title');">Title <i [ngClass]="arrowStyle('title')"
             class="fa fa-fw fa-sort "></i></th>
