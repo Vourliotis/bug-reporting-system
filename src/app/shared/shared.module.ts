@@ -5,8 +5,6 @@ import { AppRoutingModule } from '../app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
-
 @NgModule({
   declarations: [],
   imports: [
@@ -16,9 +14,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     BrowserAnimationsModule
   ],
-  exports: [
-    ReactiveFormsModule,
-    HttpClientModule
-  ]
+  exports: [ReactiveFormsModule, HttpClientModule]
 })
-export class SharedModule { }
+export class SharedModule {}

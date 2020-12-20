@@ -6,17 +6,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ContentComponent } from './content/content.component';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 
-
-
 @NgModule({
   declarations: [CreateBugComponent, EditBugComponent, ContentComponent],
-  imports: [
-    CommonModule,
-    SharedModule,
-    AppRoutingModule
-  ],
-  exports: [
-    CreateBugComponent, EditBugComponent, ContentComponent
-  ]
+  imports: [CommonModule, SharedModule, AppRoutingModule],
+  exports: [CreateBugComponent, EditBugComponent, ContentComponent]
 })
-export class BugsModule { }
+export class BugsModule {}

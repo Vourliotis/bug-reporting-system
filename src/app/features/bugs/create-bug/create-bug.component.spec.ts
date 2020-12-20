@@ -10,11 +10,10 @@ describe('CreateBugComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreateBugComponent ],
-      imports: [ SharedModule ],
-      providers: [ BugsService ]
-    })
-    .compileComponents();
+      declarations: [CreateBugComponent],
+      imports: [SharedModule],
+      providers: [BugsService]
+    }).compileComponents();
   });
 
   beforeEach(() => {

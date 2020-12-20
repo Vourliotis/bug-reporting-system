@@ -10,17 +10,17 @@ const routes: Routes = [
   {
     path: 'create-bug',
     component: CreateBugComponent,
-    canDeactivate: [UnsavedChangesGuard],
+    canDeactivate: [UnsavedChangesGuard]
   },
   {
     path: 'edit-bug/:id',
     component: EditBugComponent,
-    canDeactivate: [UnsavedChangesGuard],
-  },
+    canDeactivate: [UnsavedChangesGuard]
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}

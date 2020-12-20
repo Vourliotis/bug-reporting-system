@@ -9,10 +9,9 @@ describe('ContentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ContentComponent ],
-      imports: [ SharedModule ]
-    })
-    .compileComponents();
+      declarations: [ContentComponent],
+      imports: [SharedModule]
+    }).compileComponents();
   });
 
   beforeEach(() => {

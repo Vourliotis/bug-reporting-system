@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { Bugs } from '../models/bugs.model';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class BugsService {
   private readonly endpoint: string =
@@ -15,7 +15,7 @@ export class BugsService {
 
   deleteBug(id: string) {
     // console.log(this.endpoint+'/'+id)
-    return this.http.delete(`${this.endpoint}/${id}`, {observe: 'response'});
+    return this.http.delete(`${this.endpoint}/${id}`, { observe: 'response' });
   }
 
   postBug(bug: Bugs) {
@@ -36,7 +36,7 @@ export class BugsService {
 
   getBugsByQuery(params: URLSearchParams): Observable<HttpResponse<Bugs[]>> {
     return this.http.get<Bugs[]>(this.endpoint + '?' + params, {
-      observe: 'response',
+      observe: 'response'
     });
   }
 
@@ -44,7 +44,7 @@ export class BugsService {
     bug: Bugs = null,
     value: string = null,
     order: boolean = null,
-    page: number = null,
+    page: number = null
   ): URLSearchParams {
     const params = new URLSearchParams();
     for (const key in bug) {
@@ -63,8 +63,12 @@ export class BugsService {
     return params;
   }
 
-  combineParams(params1: URLSearchParams, params2: URLSearchParams): URLSearchParams{
-    params2.forEach(function(value, key){
+  combineParams(
+    params1: URLSearchParams,
+    params2: URLSearchParams
+  ): URLSearchParams {
+    // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+    params2.forEach(function (value, key) {
       params1.set(key, value);
     });
     return params1;

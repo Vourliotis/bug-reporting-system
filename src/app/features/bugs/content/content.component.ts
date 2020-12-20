@@ -9,7 +9,7 @@ import {
   state,
   style,
   animate,
-  transition,
+  transition
 } from '@angular/animations';
 
 @Component({
@@ -21,8 +21,8 @@ import {
     trigger('flyInOut', [
       transition(':enter', [
         style({ transform: 'translateX(100%)' }),
-        animate('0.6s ease-in-out'),
-      ]),
+        animate('0.6s ease-in-out')
+      ])
       // transition(':enter',[
       //   style({opacity: '0'}),
       //   animate('0.8s ease-in-out')
@@ -36,17 +36,13 @@ import {
     trigger('fadeInOut', [
       transition(':enter', [
         style({ opacity: '0' }),
-        animate('0.7s ease-in-out'),
-      ]),
-    ]),
-  ],
+        animate('0.7s ease-in-out')
+      ])
+    ])
+  ]
 })
 export class ContentComponent implements OnInit {
   state = false;
-
-  toggleAdvanced() {
-    this.state = this.state ? false : true;
-  }
 
   arrayOfBugs: Bugs[];
   pageNumber = 0;
@@ -58,7 +54,7 @@ export class ContentComponent implements OnInit {
 
   currentSort = {
     order: false,
-    currentCategory: 'none',
+    currentCategory: 'none'
   };
 
   constructor(
@@ -72,7 +68,7 @@ export class ContentComponent implements OnInit {
       title: [''],
       priority: [''],
       reporter: [''],
-      status: [''],
+      status: ['']
     });
 
     this.params = this.bugs.createQueryString(
@@ -89,6 +85,10 @@ export class ContentComponent implements OnInit {
       this.pageNumber = Number(response.headers.get('Page'));
       this.totalPages = Number(response.headers.get('Totalpages'));
     });
+  }
+
+  toggleAdvanced() {
+    this.state = this.state ? false : true;
   }
 
   sortBugs(category: string) {
@@ -143,9 +143,7 @@ export class ContentComponent implements OnInit {
   }
 
   deleteBug(id: string) {
-    const result = window.confirm(
-      'Are you sure you want to delete this bug?'
-    );
+    const result = window.confirm('Are you sure you want to delete this bug?');
     if (result) {
       this.bugs.deleteBug(id).subscribe((resp) => {
         // this.arrayOfBugs = this.arrayOfBugs.filter((item) => item.id !== id);
@@ -203,7 +201,7 @@ export class ContentComponent implements OnInit {
     this.advancedSearch = true;
     this.currentSort = {
       order: false,
-      currentCategory: 'none',
+      currentCategory: 'none'
     };
   }
 

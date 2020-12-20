@@ -4,7 +4,7 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
-  Validators,
+  Validators
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
@@ -20,23 +20,24 @@ import { animate, style, transition, trigger } from '@angular/animations';
   animations: [
     // animation triggers go here
     trigger('flyInOut', [
-      transition(':enter',[
-        style({transform: 'translateX(-100%)'}),
+      transition(':enter', [
+        style({ transform: 'translateX(-100%)' }),
         animate('0.5s ease-out')
       ]),
-      transition(':leave',[
-        style({transform: 'translateX(100%)'}),
+      transition(':leave', [
+        style({ transform: 'translateX(100%)' }),
         animate('0.5s ease-out')
       ])
     ]),
     trigger('fadeInOut', [
-      transition(':enter',[
-        style({opacity: '0'}),
+      transition(':enter', [
+        style({ opacity: '0' }),
         animate('0.7s ease-in-out')
       ]),
-      transition(':leave',[
+      transition(':leave', [
         style({
-          left: '-100px'}),
+          left: '-100px'
+        }),
         animate('300ms ease-out')
       ])
     ])
@@ -44,7 +45,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 })
 export class CreateBugComponent implements OnInit {
   //commented out also ^^ implements OnDestroy
-  state=true;
+  state = true;
   createForm: FormGroup;
   // bugsSubscription: Subscription
   unsaved = true;
@@ -67,7 +68,7 @@ export class CreateBugComponent implements OnInit {
       priority: [null, Validators.required],
       reporter: [null, Validators.required],
       status: [null],
-      comments: this.fb.array([]),
+      comments: this.fb.array([])
     });
   }
 
@@ -95,19 +96,25 @@ export class CreateBugComponent implements OnInit {
       return this.formValidationService.touchAllFormFields(this.createForm);
     }
     // Posts form data to server after 100 ms delay
-    else
-      {this.bugsService
+    else {
+      this.bugsService
         .postBug(this.createForm.value)
         .pipe(delay(100))
         .subscribe((response) => {
           this.unsaved = false;
           this.router.navigate(['']);
-        });}
+        });
+    }
   }
 
   canDeactivate(): Observable<boolean> | boolean {
-    if (!this.createForm.pristine && (this.createForm.invalid || this.unsaved)) {
-      const result = window.confirm('There are unsaved changes! Are you sure you want to leave?');
+    if (
+      !this.createForm.pristine &&
+      (this.createForm.invalid || this.unsaved)
+    ) {
+      const result = window.confirm(
+        'There are unsaved changes! Are you sure you want to leave?'
+      );
       return of(result);
     }
     return true;

@@ -13,23 +13,24 @@ import { animate, style, transition, trigger } from '@angular/animations';
   animations: [
     // animation triggers go here
     trigger('flyInOut', [
-      transition(':enter',[
-        style({transform: 'translateX(-100%)'}),
+      transition(':enter', [
+        style({ transform: 'translateX(-100%)' }),
         animate('0.5s ease-out')
       ]),
-      transition(':leave',[
-        style({transform: 'translateX(100%)'}),
+      transition(':leave', [
+        style({ transform: 'translateX(100%)' }),
         animate('0.5s ease-out')
       ])
     ]),
     trigger('fadeInOut', [
-      transition(':enter',[
-        style({opacity: '0'}),
+      transition(':enter', [
+        style({ opacity: '0' }),
         animate('0.7s ease-in-out')
       ]),
-      transition(':leave',[
+      transition(':leave', [
         style({
-          left: '-100px'}),
+          left: '-100px'
+        }),
         animate('300ms ease-out')
       ])
     ])
@@ -63,7 +64,7 @@ export class EditBugComponent implements OnInit {
       priority: [null, Validators.required],
       reporter: [null, Validators.required],
       status: [null],
-      comments: this.fb.array([]),
+      comments: this.fb.array([])
     });
     // this.routeSubscription = this.route.params.subscribe(params => {
     //   this.routeId = params['id']
@@ -114,18 +115,22 @@ export class EditBugComponent implements OnInit {
       return this.formValidationService.touchAllFormFields(this.updateForm);
     }
     // Updates form with my edited form values and navigates back to main component after 100 ms delay
-    else
-      {this.bugsService
+    else {
+      this.bugsService
         .updateBug(this.routeId, this.updateForm.value)
         .pipe(delay(100))
         .subscribe((data) => {
           this.unsaved = false;
           this.router.navigate(['']);
-        });}
+        });
+    }
   }
 
   canDeactivate(): Observable<boolean> | boolean {
-    if (!this.updateForm.pristine && (this.updateForm.invalid || this.unsaved)) {
+    if (
+      !this.updateForm.pristine &&
+      (this.updateForm.invalid || this.unsaved)
+    ) {
       const result = window.confirm(
         'There are unsaved changes! Are you sure you want to leave?'
       );

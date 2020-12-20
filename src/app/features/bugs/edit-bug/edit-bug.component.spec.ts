@@ -10,11 +10,10 @@ describe('EditBugComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditBugComponent ],
-      imports: [ SharedModule ],
-      providers: [ BugsService ]
-    })
-    .compileComponents();
+      declarations: [EditBugComponent],
+      imports: [SharedModule],
+      providers: [BugsService]
+    }).compileComponents();
   });
 
   beforeEach(() => {
