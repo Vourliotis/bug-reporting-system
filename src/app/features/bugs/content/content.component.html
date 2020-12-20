@@ -74,12 +74,12 @@
     </tbody>
   </table>
   <div class="row text-center">
-    <div class="col-4 mx-auto">
+    <div class="col-6 mx-auto">
       <button type="button" class="btn btn-dark btn-md btn-create" (click)="changePage('decrease')"
         [disabled]="pageNumber <= 0"> &#60;</button>
-      <span class="font-weight-bold text-light float-center "> {{pageNumber + 1}} / {{totalPages}} </span>
+      <span class="font-weight-bold text-light"> {{pageNumber + 1}} / {{totalPages}} </span>
       <button type="button" class="btn btn-dark btn-md btn-create " (click)="changePage('increase')"
-        [disabled]="pageNumber + 1 == totalPages">></button>
+        [disabled]="pageNumber + 1 == totalPages">&#62;</button>
     </div>
   </div>
 </div>
